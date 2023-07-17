@@ -5,6 +5,15 @@ import axios from "axios";
  * @param oQuery
  * @return {Promise<AxiosResponse<T>>}
  */
+export const fetchUpcoming = () => {
+  return axios.get('/get-upcoming');
+};
+
+/**
+ * Function for saving appointment
+ * @param oQuery
+ * @return {Promise<AxiosResponse<T>>}
+ */
 export const fetchAnimeNews = () => {
   return axios.get('/get-anime-news');
 };

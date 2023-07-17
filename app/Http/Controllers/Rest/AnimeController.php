@@ -15,6 +15,12 @@ class AnimeController
     $this->oAnnService = $oAnnService;
   }
 
+  public function fetchUpcoming(Request $oRequest)
+  {
+    $aResponse = $this->oAnnService->fetchUpcoming($oRequest->all());
+    return response()->json($aResponse);
+  }
+
   public function fetchAnimeNews(Request $oRequest)
   {
     $aResponse = $this->oAnnService->fetchAnimeNews($oRequest->all());

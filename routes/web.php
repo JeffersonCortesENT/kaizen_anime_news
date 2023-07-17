@@ -18,8 +18,7 @@ Route::get('/', function () {
     return view('main');
 });
 
-
-
+Route::get('/get-upcoming', [AnimeController::class, 'fetchUpcoming']);
 Route::get('/get-anime-news', [AnimeController::class, 'fetchAnimeNews']);
 Route::get('/get-top10-seasonal', [AnimeController::class, 'fetchTop10Seasonal']);
 Route::get('/get-top10-anime', [AnimeController::class, 'fetchTop10Anime']);

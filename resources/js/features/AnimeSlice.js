@@ -1,11 +1,19 @@
 import { createAsyncThunk, createSlice } from '@reduxjs/toolkit';
-import { fetchAnimeNews, fetchTop10Anime, fetchTop10Seasonal } from '../requests/externalApi';
+import { fetchAnimeNews, fetchTop10Anime, fetchTop10Seasonal, fetchUpcoming } from '../requests/externalApi';
 
 const initialState = {
     aAnimeNews: [],
     aTop10Seasonal: [],
     bLoading: false,
 };
+
+export const getUpcoming = createAsyncThunk(
+  'anime/getUpcoming',
+  async (oParams) => {
+      const oResponse = await fetchUpcoming(oParams);
+      return oResponse.data
+  }
+);
 
 export const getAnimeNews = createAsyncThunk(
     'anime/getAnimeNews',
@@ -38,6 +46,13 @@ export const animeSlice = createSlice({
     },
     extraReducers: (builder) => {
         builder
+            .addCase(getUpcoming.pending, (state) => {
+              state.bLoading = true;
+            })
+            .addCase(getUpcoming.fulfilled, (state, action) => {
+                state.aAnimeNews = action.payload.data;
+                state.bLoading = false;
+            })
             .addCase(getAnimeNews.pending, (state) => {
                 state.bLoading = true;
             })

@@ -17,15 +17,20 @@ class AnimeService
     $this->oJikan = new MalClient();
   }
 
+  public function fetchUpcoming()
+  {
+    $aUpcoming = RequestLibrary::getRequest('https://api.jikan.moe/v4/seasons/upcoming', [
+      ApiConstants::LIMIT => 10,
+    ]);
+
+    return [
+      ApiConstants::CODE => 200,
+      ApiConstants::DATA => $aUpcoming
+    ];
+  }
+
   public function fetchAnimeNews()
   {
-    // dd($this->oJikan->getAnime(
-    //   (new \Jikan\Request\Anime\AnimeRequest(1))
-    // ));
-    // dd($this->oJikan->getAnimeSearch(
-    //   (new \Jikan\Request\Search\AnimeSearchRequest(""))
-    // ));
-
     // Load the XML file
     $oResponse = @simplexml_load_file($this->sMALNewsEndpoint);
     if ($oResponse === false) {
