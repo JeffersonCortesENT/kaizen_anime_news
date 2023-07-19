@@ -5,7 +5,7 @@ const initialState = {
     aUpcoming: [],
     aAnimeNews: [],
     aTop10Seasonal: [],
-    bLoading: false,
+    bLoading: true,
 };
 
 export const getUpcoming = createAsyncThunk(
@@ -44,26 +44,30 @@ export const animeSlice = createSlice({
     name: 'anime',
     initialState,
     reducers: {
+      setLoadingStatus: (state, action) => {
+        const { value } = action.payload;
+        state.bLoading = value;
+      },
     },
     extraReducers: (builder) => {
         builder
-            .addCase(getUpcoming.pending, (state) => {
-              state.bLoading = true;
-            })
+            // .addCase(getUpcoming.pending, (state) => {
+            //   state.bLoading = true;
+            // })
             .addCase(getUpcoming.fulfilled, (state, action) => {
                 state.aUpcoming = action.payload.data.data;
                 state.bLoading = false;
             })
-            .addCase(getAnimeNews.pending, (state) => {
-                state.bLoading = true;
-            })
+            // .addCase(getAnimeNews.pending, (state) => {
+            //     state.bLoading = true;
+            // })
             .addCase(getAnimeNews.fulfilled, (state, action) => {
-                state.aAnimeNews = action.payload.data.data;
+                state.aAnimeNews = action.payload.data;
                 state.bLoading = false;
             })
-            .addCase(getTop10Seasonal.pending, (state) => {
-              state.bLoading = true;
-            })
+            // .addCase(getTop10Seasonal.pending, (state) => {
+            //   state.bLoading = true;
+            // })
             .addCase(getTop10Seasonal.fulfilled, (state, action) => {
                 state.aTop10Seasonal = action.payload.data.data;
                 console.log(state.aTop10Seasonal);
@@ -72,10 +76,12 @@ export const animeSlice = createSlice({
     }
 });
 
-// export const {
-// } = getAnnReports.actions;
+export const {
+  setLoadingStatus,
+} = animeSlice.actions;
 
 export const selectUpcoming = (state) => state.anime.aUpcoming;
 export const selectAnimeNews = (state) => state.anime.aAnimeNews;
+export const selectLoading = (state) => state.anime.bLoading;
 
 export default animeSlice.reducer;
