@@ -2,6 +2,7 @@ import { createAsyncThunk, createSlice } from '@reduxjs/toolkit';
 import { fetchAnimeNews, fetchTop10Anime, fetchTop10Seasonal, fetchUpcoming } from '../requests/externalApi';
 
 const initialState = {
+    aUpcoming: [],
     aAnimeNews: [],
     aTop10Seasonal: [],
     bLoading: false,
@@ -50,21 +51,21 @@ export const animeSlice = createSlice({
               state.bLoading = true;
             })
             .addCase(getUpcoming.fulfilled, (state, action) => {
-                state.aAnimeNews = action.payload.data;
+                state.aUpcoming = action.payload.data.data;
                 state.bLoading = false;
             })
             .addCase(getAnimeNews.pending, (state) => {
                 state.bLoading = true;
             })
             .addCase(getAnimeNews.fulfilled, (state, action) => {
-                state.aAnimeNews = action.payload.data;
+                state.aAnimeNews = action.payload.data.data;
                 state.bLoading = false;
             })
             .addCase(getTop10Seasonal.pending, (state) => {
               state.bLoading = true;
             })
             .addCase(getTop10Seasonal.fulfilled, (state, action) => {
-                state.aTop10Seasonal = action.payload;
+                state.aTop10Seasonal = action.payload.data.data;
                 console.log(state.aTop10Seasonal);
                 state.bLoading = false;
             })
@@ -74,6 +75,7 @@ export const animeSlice = createSlice({
 // export const {
 // } = getAnnReports.actions;
 
+export const selectUpcoming = (state) => state.anime.aUpcoming;
 export const selectAnimeNews = (state) => state.anime.aAnimeNews;
 
 export default animeSlice.reducer;

@@ -24,8 +24,8 @@ class AnimeService
     ]);
 
     return [
-      ApiConstants::CODE => 200,
-      ApiConstants::DATA => $aUpcoming
+      ApiConstants::CODE => $aUpcoming[ApiConstants::CODE],
+      ApiConstants::DATA => $aUpcoming[ApiConstants::DATA]
     ];
   }
 
@@ -67,8 +67,8 @@ class AnimeService
     ]);
 
     return [
-      ApiConstants::CODE => 200,
-      ApiConstants::DATA => $aTop10Seasonal
+      ApiConstants::CODE => $aTop10Seasonal[ApiConstants::CODE],
+      ApiConstants::DATA => $aTop10Seasonal[ApiConstants::DATA]
     ];
   }
 
@@ -79,8 +79,8 @@ class AnimeService
     ]);
 
     return [
-      ApiConstants::CODE => 200,
-      ApiConstants::DATA => $aTop10Anime
+      ApiConstants::CODE => $aTop10Anime[ApiConstants::CODE],
+      ApiConstants::DATA => $aTop10Anime[ApiConstants::DATA]
     ];
   }
 }

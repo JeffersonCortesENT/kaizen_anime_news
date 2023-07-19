@@ -4,14 +4,13 @@ import { createRoot } from 'react-dom/client';
 import { Provider } from "react-redux";
 import { store } from "./store";
 import { BrowserRouter } from "react-router-dom";
+import '@splidejs/react-splide/css';
 
 const root = createRoot(document.getElementById('root'));
 root.render(
-<React.StrictMode>
-  <Provider store={store}>
+<Provider store={store}>
     <BrowserRouter>
       <Main/>
     </BrowserRouter>
-  </Provider>
-</React.StrictMode>);
+  </Provider>);
 
