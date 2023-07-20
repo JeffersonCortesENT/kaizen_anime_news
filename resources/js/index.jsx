@@ -4,6 +4,7 @@ import { createRoot } from 'react-dom/client';
 import { Provider } from "react-redux";
 import { store } from "./store";
 import { BrowserRouter } from "react-router-dom";
+import 'react-multi-carousel/lib/styles.css';
 import '@splidejs/react-splide/css';
 
 const root = createRoot(document.getElementById('root'));

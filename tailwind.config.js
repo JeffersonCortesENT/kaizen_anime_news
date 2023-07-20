@@ -28,7 +28,10 @@ export default withMT(
     theme: {
       extend: {
         colors: {
-          'header-upcoming': '#1f2937'
+          'navy': '#0B2447',
+          'light-navy': '#19376D',
+          'light-purple': '#576CBC',
+          'celeste': '#A5D7E8'
         }
       },
     },

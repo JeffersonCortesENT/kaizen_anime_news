@@ -13,7 +13,7 @@ const classNames = (...classes) => {
 
 const NavBar = () => {
   return (
-    <Disclosure as="nav" className="bg-header-upcoming">
+    <Disclosure as="nav" className="bg-navy">
       {({ open }) => (
         <>
           <div className="mx-auto max-w-7xl px-2 sm:px-6 lg:px-8">

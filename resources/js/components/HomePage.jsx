@@ -5,10 +5,10 @@ import NavBar from "./Common/NavBar";
 import Upcoming from "./HomePageComponents/Upcoming";
 import Loader from "./Common/Loader";
 import News from "./HomePageComponents/News";
+import TopSeasonal from "./HomePageComponents/TopSeasonal";
 
 const HomePage = () => {
   const dispatch = useDispatch();
-  const aAnimeData = useSelector(selectAnimeNews);
   const bLoading = useSelector(selectLoading);
 
 
@@ -42,8 +42,10 @@ const HomePage = () => {
 
           <News/>
 
-          <div className="bg-green-500 text-white h-24">
-            <p>Top Seasonal</p>
+          <TopSeasonal/>
+
+          <div className="bg-celeste text-white h-24">
+            <p>Footer</p>
           </div>
         </div>
 

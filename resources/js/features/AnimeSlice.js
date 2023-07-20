@@ -83,5 +83,6 @@ export const {
 export const selectUpcoming = (state) => state.anime.aUpcoming;
 export const selectAnimeNews = (state) => state.anime.aAnimeNews;
 export const selectLoading = (state) => state.anime.bLoading;
+export const selectTopSeasonal = (state) => state.anime.aTop10Seasonal;
 
 export default animeSlice.reducer;

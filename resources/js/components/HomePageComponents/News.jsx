@@ -35,8 +35,8 @@ const News = () => {
 
   return (
     <>
-      <div className="bg-white p-6">
-      <h1 className="text-black text-4xl font-bold font-sans text-center py-3">Anime and Manga News</h1>
+      <div className="bg-light-navy p-6">
+      <h1 className="text-teal-50 text-4xl font-bold font-sans text-center py-3">Anime and Manga News</h1>
         <Carousel responsive={oResponsive}>
             {
               aNews?.map((oNews, iKey) => (

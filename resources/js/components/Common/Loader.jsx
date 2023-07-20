@@ -3,7 +3,7 @@
 const Loader = () => {
   return (
     <>
-      <div className="absolute bg-header-upcoming z-10 h-[calc(100%)] w-full flex items-center justify-center">
+      <div className="absolute bg-navy z-10 h-[calc(100%)] w-full flex items-center justify-center">
         <div className="flex items-center">
           <span className="text-3xl text-teal-50 mr-4">Loading</span>
           <svg className="animate-spin h-8 w-8 text-teal-50" xmlns="http://www.w3.org/2000/svg" fill="none"

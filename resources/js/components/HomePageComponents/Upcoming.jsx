@@ -8,12 +8,13 @@ const Upcoming = () => {
 
   return (
     <>
-      <div className="bg-header-upcoming p-5">
+      <div className="bg-navy p-5">
         <h1 className="text-teal-50 text-4xl font-bold font-sans text-center py-3">Most Anticipated</h1>
         <Splide aria-label="My Favorite Images"
             options={{
               autoplay: true,
               type: "fade",
+              rewind: true
           }}
         >
         {aUpcoming?.map((aData, iKey) => (
