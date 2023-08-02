@@ -6,6 +6,7 @@ import Upcoming from "./HomePageComponents/Upcoming";
 import Loader from "./Common/Loader";
 import News from "./HomePageComponents/News";
 import TopSeasonal from "./HomePageComponents/TopSeasonal";
+import Footer from "./HomePageComponents/Footer";
 
 const HomePage = () => {
   const dispatch = useDispatch();
@@ -44,22 +45,8 @@ const HomePage = () => {
 
           <TopSeasonal/>
 
-          <div className="bg-celeste text-white h-24">
-            <p>Footer</p>
-          </div>
+          <Footer/>
         </div>
-
-        {/* <div className="flex flex-wrap flex-col">
-          <div className="bg-lightBlue text-white h-26">
-            <p>Upcoming</p>
-          </div>
-          <div className="bg-red-500 text-white h-26">
-            <p>News</p>
-          </div>
-          <div className="bg-green-500 text-white h-26">
-            <p>Top Seasonal</p>
-          </div>
-        </div> */}
       </div>
     </>
   );
