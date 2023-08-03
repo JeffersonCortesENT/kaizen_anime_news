@@ -15,7 +15,6 @@ use Illuminate\Support\Facades\Route;
 */
 
 Route::get('/', function () {
-  dd("fuck you fuck you fuck you");
   return view('main');
 });
 
