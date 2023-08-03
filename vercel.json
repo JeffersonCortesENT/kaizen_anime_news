@@ -4,10 +4,16 @@
   "functions": {
       "api/index.php": { "runtime": "vercel-php@0.5.3" }
   },
-  "routes": [{
+  "routes": [
+    {
+      "src": "/build(.*)",
+      "dest": "/public/build/"
+    },
+    {
       "src": "/(.*)",
       "dest": "/api/index.php"
-  }],
+    }
+  ],
   "env": {
       "APP_NAME": "Kaizen Anime News",
       "APP_ENV": "production",
