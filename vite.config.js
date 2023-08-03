@@ -5,7 +5,7 @@ import react from '@vitejs/plugin-react';
 export default defineConfig({
   plugins: [
     laravel({
-      input: ['resources/css/app.css', 'resources/js/app.js'],
+      input: ['resources/css/app.css', 'resources/js/index.jsx'],
       refresh: true,
     }),
     react(),
@@ -14,7 +14,7 @@ export default defineConfig({
     rollupOptions: {
       output: {
         // Customize the file names for JavaScript and CSS
-        entryFileNames: 'assets/app.js',
+        entryFileNames: 'assets/[name].js',
         chunkFileNames: 'assets/[name].js',
         assetFileNames: 'assets/[name].[ext]',
       },

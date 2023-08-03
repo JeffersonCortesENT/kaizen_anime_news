@@ -9,8 +9,11 @@
       @vite('resources/js/index.jsx')
       @vite('resources/css/app.css')
     @endenv
+    <!-- <link rel="stylesheet" href="{{ env('APP_URL') }}/build/assets/index.css"></link>
+    <link rel="stylesheet" href="{{ env('APP_URL') }}/build/assets/app.css"></link> -->
     @env('production')
-      <link rel="stylesheet" src="{{ env('PRODUCTION_URL') }}/build/assets/app.css"></link>
+      <link rel="stylesheet" href="{{ env('PRODUCTION_URL') }}/build/assets/app.css"></link>
+      <link rel="stylesheet" href="{{ env('PRODUCTION_URL') }}/build/assets/index.css">
     @endenv
   </head>
   <body>
