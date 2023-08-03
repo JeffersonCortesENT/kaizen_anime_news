@@ -15,7 +15,7 @@ use Illuminate\Support\Facades\Route;
 */
 
 Route::get('/', function () {
-    return view('main');
+  return view('main');
 });
 
 Route::get('/get-upcoming', [AnimeController::class, 'fetchUpcoming']);

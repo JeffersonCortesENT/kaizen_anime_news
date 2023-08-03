@@ -31,7 +31,8 @@ export default withMT(
           'navy': '#0B2447',
           'light-navy': '#19376D',
           'light-purple': '#576CBC',
-          'celeste': '#A5D7E8'
+          'celeste': '#A5D7E8',
+          'celeste-contrast': '#4D0000',
         }
       },
     },
