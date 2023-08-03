@@ -15,7 +15,11 @@ use Illuminate\Support\Facades\Route;
 */
 
 Route::get('/', function () {
-    return view('main');
+    try {
+      return view('main');
+    } catch (Exception $oError) {
+      dd($oError->getMessage());
+    }
 });
 
 Route::get('/get-upcoming', [AnimeController::class, 'fetchUpcoming']);
