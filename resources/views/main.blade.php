@@ -10,14 +10,14 @@
       @vite('resources/css/app.css')
     @endenv -->
     @env('production')
-      <link rel="stylesheet" href="{{ asset('assets/app.css') }}"></link>
-      <link rel="stylesheet" href="{{ asset('assets/index.css') }}">
+      <link rel="stylesheet" href="{{ asset('build/assets/app.css') }}"></link>
+      <link rel="stylesheet" href="{{ asset('build/assets/index.css') }}">
     @endenv
   </head>
   <body>
     <div id="root"></div>
     @env('production')
-      <script src="{{ asset('assets/app.js') }}"></script>
+      <script src="{{ asset('build/assets/app.js') }}"></script>
     @endenv
   </body>
 </html>
