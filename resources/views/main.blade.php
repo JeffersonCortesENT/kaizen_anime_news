@@ -9,8 +9,6 @@
       @vite('resources/js/index.jsx')
       @vite('resources/css/app.css')
     @endenv -->
-    <link rel="stylesheet" href="{{ asset('assets/app.css') }}"></link>
-    <link rel="stylesheet" href="{{ asset('assets/index.css') }}"></link>
     @env('production')
       <link rel="stylesheet" href="{{ asset('assets/app.css') }}"></link>
       <link rel="stylesheet" href="{{ asset('assets/index.css') }}">
@@ -18,7 +16,6 @@
   </head>
   <body>
     <div id="root"></div>
-    <script src="{{ asset('assets/app.js') }}"></script>
     @env('production')
       <script src="{{ asset('assets/app.js') }}"></script>
     @endenv
