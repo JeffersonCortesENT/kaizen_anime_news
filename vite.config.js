@@ -1,12 +1,18 @@
 import { defineConfig } from 'vite';
 import laravel from 'laravel-vite-plugin';
 import react from '@vitejs/plugin-react';
+import fs from 'fs';
+import path from 'path';
 
 export default defineConfig({
   plugins: [
     laravel({
-      input: ['resources/css/app.css', 'resources/js/index.jsx'],
+      input: {
+        app: 'resources/js/index.jsx', // JS entry point
+        styles: 'resources/css/app.css', // CSS entry point
+      },
       refresh: true,
+      manifest: true,
     }),
     react(),
   ],
