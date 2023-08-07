@@ -7,12 +7,13 @@ import Loader from "./Common/Loader";
 import News from "./HomePageComponents/News";
 import TopSeasonal from "./HomePageComponents/TopSeasonal";
 import Footer from "./HomePageComponents/Footer";
+import VideoPlayerModal from "./Common/VideoPlayerModal";
 
 const HomePage = () => {
   const dispatch = useDispatch();
   const bLoading = useSelector(selectLoading);
-
-
+  const [bShowModal, setShowModal] = useState(false);
+  const [oVideoUrl, setVideoUrl] = useState({});
 
   const getHomePageData = () => {
     dispatch(setLoadingStatus({value: true}));
@@ -43,9 +44,18 @@ const HomePage = () => {
 
           <News/>
 
-          <TopSeasonal/>
+          <TopSeasonal
+            setShowModal={setShowModal}
+            setVideoUrl={setVideoUrl}
+          />
 
           <Footer/>
+
+          <VideoPlayerModal 
+            bShowModal={bShowModal}
+            setShowModal={setShowModal}
+            oVideoUrl={oVideoUrl}
+          />
         </div>
       </div>
     </>
