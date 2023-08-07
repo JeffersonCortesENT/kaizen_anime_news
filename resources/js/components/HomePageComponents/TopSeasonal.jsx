@@ -23,7 +23,7 @@ const TopSeasonal = ({ setShowModal, setVideoUrl }) => {
     },
     mobile: {
       breakpoint: { max: 464, min: 0 },
-      items: 1
+      items: 2
     }
   };
   //Device Detector package: https://www.npmjs.com/package/react-device-detect
