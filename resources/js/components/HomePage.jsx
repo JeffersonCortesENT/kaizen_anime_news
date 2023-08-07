@@ -37,7 +37,7 @@ const HomePage = () => {
         {bLoading === true && (
           <Loader/>
         )}
-        <NavBar/>
+        <NavBar sCurrentPage={'Home'}/>
         {/* <div className="grid grid-cols-2 sm:grid-cols-2 md:grid-cols-3 lg:grid-cols-4"></div> */}
         <div className="grid grid-cols-1">
           <Upcoming/>
