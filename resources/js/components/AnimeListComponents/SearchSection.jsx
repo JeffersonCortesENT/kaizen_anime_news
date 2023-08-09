@@ -4,6 +4,106 @@ import { useState } from "react";
 const SearchSection = () => {
   const [isAscending, setIsAscending] = useState(true);
 
+  const orderByValues = [
+    {
+      value: null,
+      display: 'Order By'
+    },
+    {
+      value: 'title',
+      display: 'Gago',
+    },
+    {
+      value: 'type',
+      display: 'Type',
+    },
+    {
+      value: 'rating',
+      display: 'Rating',
+    },
+    {
+      value: 'release_date',
+      display: 'Release',
+    },
+    {
+      value: 'rank',
+      display: 'Rank',
+    },
+    {
+      value: 'popularity',
+      display: 'Popularity',
+    },
+  ];
+
+  const animeTypeValues = [
+    {
+      value: null,
+      display: 'Type'
+    },
+    {
+      value: 'ova',
+      display: 'OVA',
+    },
+    {
+      value: 'movie',
+      display: 'Movie',
+    },
+    {
+      value: 'special',
+      display: 'Special',
+    },
+    {
+      value: 'ona',
+      display: 'ONA',
+    },
+    {
+      value: 'music',
+      display: 'Music',
+    },
+  ];
+
+  const animeStatusValues = [
+    {
+      value: null,
+      display: 'Status'
+    },
+    {
+      value: 'airing',
+      display: 'Airing',
+    },
+    {
+      value: 'complete',
+      display: 'Complete',
+    },
+    {
+      value: 'upcoming',
+      display: 'Upcoming',
+    },
+  ];
+
+  const animeRatingValues = [
+    {
+      value: null,
+      display: 'Rating'
+    },
+    {
+      value: 'g',
+      display: 'G',
+    },
+    {
+      value: 'pg',
+      display: 'PG',
+    },
+    {
+      value: 'pg-13',
+      display: 'PG-13',
+    },
+    {
+      value: 'r',
+      display: 'R',
+    },
+  ];
+
   const handleSortToggle = () => {
     setIsAscending(!isAscending);
   };
@@ -30,15 +130,11 @@ const SearchSection = () => {
               id="orderBy"
               name="orderBy"
               className="form-select mt-1 rounded-lg"
-              defaultValue={"Order By"}
+              defaultValue={null}
             >
-              <option value="Order By" disabled>Order By</option>
-              <option value="title">Title</option>
-              <option value="type">Type</option>
-              <option value="rating">Rating</option>
-              <option value="releaseDate">Release Date</option>
-              <option value="rank">Rank</option>
-              <option value="popularity">Popularity</option>
+              {orderByValues?.map((oValue, iKey) => (
+                <option key={iKey} value={oValue.value}>{oValue.display}</option>
+              ))}
             </select>
           </div>
           <div className="p-1 lg:p-4">
@@ -46,15 +142,11 @@ const SearchSection = () => {
               id="animeType"
               name="animeType"
               className="form-select mt-1 rounded-lg"
-              defaultValue={"Type"}
+              defaultValue={null}
             >
-              <option value="Type" disabled>Type</option>
-              <option value="TV">TV</option>
-              <option value="OVA">OVA</option>
-              <option value="Movie">Movie</option>
-              <option value="Special">Special</option>
-              <option value="ONA">ONA</option>
-              <option value="Music">Music</option>
+              {animeTypeValues?.map((oValue, iKey) => (
+                <option key={iKey} value={oValue.value}>{oValue.display}</option>
+              ))}
             </select>
           </div>
           <div className="p-1 lg:p-4">
@@ -62,12 +154,11 @@ const SearchSection = () => {
               id="animeStatus"
               name="animeStatus"
               className="form-select mt-1 rounded-lg"
-              defaultValue={"Status"}
+              defaultValue={null}
             >
-              <option value="Status" disabled>Status</option>
-              <option value="Airing">Airing</option>
-              <option value="Complete">Complete</option>
-              <option value="Upcoming">Upcoming</option>
+              {animeStatusValues?.map((oValue, iKey) => (
+                <option key={iKey} value={oValue.value}>{oValue.display}</option>
+              ))}
             </select>
           </div>
           <div className="p-1 lg:p-4">
@@ -75,13 +166,11 @@ const SearchSection = () => {
               id="animeRating"
               name="animeRating"
               className="form-select mt-1 rounded-lg"
-              defaultValue={"Rating"}
+              defaultValue={null}
             >
-              <option value="Rating" disabled>Rating</option>
-              <option value="G">G</option>
-              <option value="PG">PG</option>
-              <option value="PG-13">PG-13</option>
-              <option value="R">R</option>
+              {animeRatingValues?.map((oValue, iKey) => (
+                <option key={iKey} value={oValue.value}>{oValue.display}</option>
+              ))}
             </select>
           </div>
           <div className="p-1 lg:p-4">

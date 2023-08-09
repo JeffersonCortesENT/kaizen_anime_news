@@ -19,7 +19,7 @@ const AnimeList = () => {
 
       <div className="grid grid-cols-1">
         <SearchSection/>
-        <div className="w-1/3 h-16 bg-cyan-500 mb-4 rounded"></div>
+        <div className="w-1/3 h-16 bg-light-purple mb-4 rounded"></div>
         <div className="w-1/3 h-16 bg-indigo-500 mb-4 rounded"></div>
       {/* Add more section boxes as needed */}
       </div>
