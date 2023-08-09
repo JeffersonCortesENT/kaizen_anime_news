@@ -38,6 +38,7 @@ export default withMT(
     },
     plugins: [
       require('@tailwindcss/aspect-ratio'),
+      require('@tailwindcss/forms'),
     ],
   }
 )
