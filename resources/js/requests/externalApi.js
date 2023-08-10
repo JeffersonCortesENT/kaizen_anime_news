@@ -36,4 +36,13 @@ export const fetchTop10Anime = () => {
   return axios.get('/get-top10-anime');
 };
 
+/**
+ * Function for saving appointment
+ * @param oQuery
+ * @return {Promise<AxiosResponse<T>>}
+ */
+export const fetchAnimeSearch = (oParams) => {
+  return axios.get('/get-anime-search', { params: oParams });
+};
+
 

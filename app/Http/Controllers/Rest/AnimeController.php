@@ -38,4 +38,10 @@ class AnimeController
     $aResponse = $this->oAnnService->fetchTop10Anime($oRequest->all());
     return response()->json($aResponse);
   }
+
+  public function fetchSearchAnime(Request $oRequest)
+  {
+    $aResponse = $this->oAnnService->fetchAnimeSearch($oRequest->all());
+    return response()->json($aResponse);
+  }
 }

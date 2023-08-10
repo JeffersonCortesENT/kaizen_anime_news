@@ -11,7 +11,7 @@ const SearchSection = () => {
     },
     {
       value: 'title',
-      display: 'Gago',
+      display: 'Title',
     },
     {
       value: 'type',

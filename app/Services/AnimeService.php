@@ -83,4 +83,14 @@ class AnimeService
       ApiConstants::DATA => $aTop10Anime[ApiConstants::DATA]
     ];
   }
+
+  public function fetchAnimeSearch(array $aParameters)
+  {
+    $aTop10Anime = RequestLibrary::getRequest('https://api.jikan.moe/v4/anime', $aParameters);
+
+    return [
+      ApiConstants::CODE => $aTop10Anime[ApiConstants::CODE],
+      ApiConstants::DATA => $aTop10Anime[ApiConstants::DATA]
+    ];
+  }
 }

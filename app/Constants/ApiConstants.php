@@ -14,6 +14,10 @@ class ApiConstants
   public const DATA = 'data';
   public const PAGE = 'page';
   public const LIMIT = 'limit';
+  public const SORT = 'sort';
+  public const ASC = 'asc';
+  public const DESC = 'desc';
+  public const ORDER_BY = 'order_by';
 
   //Status Codes
   public const SUCCESS_CODE = 200;

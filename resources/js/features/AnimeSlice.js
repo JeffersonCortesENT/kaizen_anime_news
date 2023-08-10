@@ -1,10 +1,22 @@
 import { createAsyncThunk, createSlice } from '@reduxjs/toolkit';
-import { fetchAnimeNews, fetchTop10Anime, fetchTop10Seasonal, fetchUpcoming } from '../requests/externalApi';
+import { fetchAnimeNews, fetchAnimeSearch, fetchTop10Anime, fetchTop10Seasonal, fetchUpcoming } from '../requests/externalApi';
 
 const initialState = {
     aUpcoming: [],
     aAnimeNews: [],
     aTop10Seasonal: [],
+    oPagination: {
+      last_visible_page: 0,
+      has_next_page: false,
+      current_page: 1,
+    },
+    aAnimeSearch: [],
+    oSearchParams: {
+      page: 1,
+      order_by: 'popularity',
+      limit: 12,
+      sort: 'desc',
+    },
     bLoading: true,
 };
 
@@ -40,6 +52,14 @@ export const getTop10Anime = createAsyncThunk(
   }
 );
 
+export const getAnimeSearch = createAsyncThunk(
+  'anime/getAnimeSearch',
+  async (oParams) => {
+      const oResponse = await fetchAnimeSearch(oParams);
+      return oResponse.data
+  }
+);
+
 export const animeSlice = createSlice({
     name: 'anime',
     initialState,
@@ -47,6 +67,10 @@ export const animeSlice = createSlice({
       setLoadingStatus: (state, action) => {
         const { value } = action.payload;
         state.bLoading = value;
+      },
+      setCurrentPage: (state, action) => {
+        const { value } = action.payload;
+        state.oSearchParams.page = value;
       },
     },
     extraReducers: (builder) => {
@@ -73,16 +97,26 @@ export const animeSlice = createSlice({
                 console.log(state.aTop10Seasonal);
                 state.bLoading = false;
             })
+            .addCase(getAnimeSearch.fulfilled, (state, action) => {
+              state.aAnimeSearch = action.payload.data.data;
+              state.oPagination = action.payload.data.pagination;
+              console.log(state.aAnimeSearch);
+              state.bLoading = false;
+            })
     }
 });
 
 export const {
   setLoadingStatus,
+  setCurrentPage,
 } = animeSlice.actions;
 
 export const selectUpcoming = (state) => state.anime.aUpcoming;
 export const selectAnimeNews = (state) => state.anime.aAnimeNews;
 export const selectLoading = (state) => state.anime.bLoading;
 export const selectTopSeasonal = (state) => state.anime.aTop10Seasonal;
+export const selectAnimeSearch = (state) => state.anime.aAnimeSearch;
+export const selectPagination = (state) => state.anime.oPagination;
+export const selectSearchParams = (state) => state.anime.oSearchParams;
 
 export default animeSlice.reducer;

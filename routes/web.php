@@ -18,6 +18,7 @@ Route::get('/get-upcoming', [AnimeController::class, 'fetchUpcoming']);
 Route::get('/get-anime-news', [AnimeController::class, 'fetchAnimeNews']);
 Route::get('/get-top10-seasonal', [AnimeController::class, 'fetchTop10Seasonal']);
 Route::get('/get-top10-anime', [AnimeController::class, 'fetchTop10Anime']);
+Route::get('/get-anime-search', [AnimeController::class, 'fetchSearchAnime']);
 
 //This set's up routes from React to main view. Don't relocate code section above rest routes!
 Route::view('/{path?}', 'main')
