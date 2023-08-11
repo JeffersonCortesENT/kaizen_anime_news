@@ -33,6 +33,10 @@ export default withMT(
           'light-purple': '#576CBC',
           'celeste': '#A5D7E8',
           'celeste-contrast': '#4D0000',
+          'light-blue': '#75C2F6',
+          'yellow': '#F4D160',
+          'light-yellow': '#FBEEAC',
+          'pagination-border': '#1D5D9B',
         }
       },
     },

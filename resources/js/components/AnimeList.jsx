@@ -5,13 +5,13 @@ import { getAnimeSearch, selectLoading, selectSearchParams, setLoadingStatus } f
 import Loader from "./Common/Loader";
 import SearchSection from "./AnimeListComponents/SearchSection";
 import AnimeTable from "./AnimeListComponents/AnimeTable";
-import { useEffect } from "react";
+import { useEffect, useState } from "react";
 
 const AnimeList = () => {
   const dispatch = useDispatch();
-  // const bLoading = useSelector(selectLoading);
   const bLoading = useSelector(selectLoading);
   const oParams = useSelector(selectSearchParams);
+  const [bTableLoading, setLoading] = useState(false);
 
   const searchAnime = () => {
     dispatch(setLoadingStatus({value: true}));
@@ -35,10 +35,14 @@ const AnimeList = () => {
         <NavBar sCurrentPage={'Search'}/>
 
         <div className="grid grid-cols-1">
-          <SearchSection/>
-          <AnimeTable/>
+          <SearchSection
+            setLoading={setLoading}
+          />
+          <AnimeTable
+            bTableLoading={bTableLoading}
+            setLoading={setLoading}
+          />
         </div>
-
         <Footer/>
       </div>
     </>

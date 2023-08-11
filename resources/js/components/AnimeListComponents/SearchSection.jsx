@@ -1,12 +1,16 @@
 import { ArrowUpIcon, ArrowDownIcon, MagnifyingGlassIcon } from "@heroicons/react/24/outline";
 import { useState } from "react";
+import { getAnimeSearch, selectSearchParams, setSearchParams } from "../../features/AnimeSlice";
+import { useDispatch, useSelector } from "react-redux";
 
-const SearchSection = () => {
-  const [isAscending, setIsAscending] = useState(true);
+const SearchSection = ({ setLoading }) => {
+  const [bAscending, setIsAscending] = useState(false);
+  const dispatch = useDispatch();
+  const oParams = useSelector(selectSearchParams);
 
   const orderByValues = [
     {
-      value: null,
+      value: 'score',
       display: 'Order By'
     },
     {
@@ -14,15 +18,11 @@ const SearchSection = () => {
       display: 'Title',
     },
     {
-      value: 'type',
-      display: 'Type',
-    },
-    {
-      value: 'rating',
+      value: 'score',
       display: 'Rating',
     },
     {
-      value: 'release_date',
+      value: 'start_date',
       display: 'Release',
     },
     {
@@ -37,7 +37,7 @@ const SearchSection = () => {
 
   const animeTypeValues = [
     {
-      value: null,
+      value: '',
       display: 'Type'
     },
     {
@@ -64,7 +64,7 @@ const SearchSection = () => {
 
   const animeStatusValues = [
     {
-      value: null,
+      value: '',
       display: 'Status'
     },
     {
@@ -83,7 +83,7 @@ const SearchSection = () => {
 
   const animeRatingValues = [
     {
-      value: null,
+      value: '',
       display: 'Rating'
     },
     {
@@ -104,21 +104,45 @@ const SearchSection = () => {
     },
   ];
 
+  const handleSearchForm = (oEvent) => {
+    const {name, value} = oEvent.target;
+    dispatch(setSearchParams({name, value}));
+  }
+
   const handleSortToggle = () => {
-    setIsAscending(!isAscending);
+    setIsAscending(!bAscending);
+    const sSort = bAscending ? 'desc' : 'asc';
+    setLoading(true);
+    Promise.all([
+      dispatch(setSearchParams({ name: 'sort', value: sSort})),
+      dispatch(getAnimeSearch({...oParams, sort: sSort})),
+    ]).then(() => {
+      setLoading(false);
+    });
   };
+
+  const applySearchFilter = () => {
+    setLoading(true);
+    Promise.all([
+      dispatch(getAnimeSearch(oParams)),
+    ]).then(() => {
+      setLoading(false);
+    })
+  }
 
   return (
     <>
       <div className="bg-light-navy p-6">
         <div className="flex flex-row justify-center items-center">
           <input
-            type="text"
-            name="search_text"
+            type="q"
+            name="q"
             className="form-input px-4 py-3 rounded-l-lg sm:w-1/3"
             placeholder="Search Anime..."
+            defaultValue={oParams.q}
+            onChange={handleSearchForm}
           />
-          <button className="bg-blue-500 text-white rounded-r-lg px-4 py-4">
+          <button className="bg-blue-500 text-white rounded-r-lg px-4 py-4" onClick={applySearchFilter}>
             <MagnifyingGlassIcon className="w-5 h-5" />
           </button>
         </div>
@@ -127,10 +151,11 @@ const SearchSection = () => {
         <div className="flex flex-row flex-wrap justify-center items-center">
           <div className="p-1 lg:p-4">
             <select
-              id="orderBy"
-              name="orderBy"
+              id="order_by"
+              name="order_by"
               className="form-select mt-1 rounded-lg"
-              defaultValue={null}
+              onChange={handleSearchForm}
+              defaultValue={oParams.order_by}
             >
               {orderByValues?.map((oValue, iKey) => (
                 <option key={iKey} value={oValue.value}>{oValue.display}</option>
@@ -139,10 +164,11 @@ const SearchSection = () => {
           </div>
           <div className="p-1 lg:p-4">
             <select
-              id="animeType"
-              name="animeType"
+              id="type"
+              name="type"
               className="form-select mt-1 rounded-lg"
-              defaultValue={null}
+              onChange={handleSearchForm}
+              defaultValue={oParams.type}
             >
               {animeTypeValues?.map((oValue, iKey) => (
                 <option key={iKey} value={oValue.value}>{oValue.display}</option>
@@ -151,10 +177,11 @@ const SearchSection = () => {
           </div>
           <div className="p-1 lg:p-4">
             <select
-              id="animeStatus"
-              name="animeStatus"
+              id="status"
+              name="status"
               className="form-select mt-1 rounded-lg"
-              defaultValue={null}
+              onChange={handleSearchForm}
+              defaultValue={oParams.status}
             >
               {animeStatusValues?.map((oValue, iKey) => (
                 <option key={iKey} value={oValue.value}>{oValue.display}</option>
@@ -163,10 +190,11 @@ const SearchSection = () => {
           </div>
           <div className="p-1 lg:p-4">
             <select
-              id="animeRating"
-              name="animeRating"
+              id="rating"
+              name="rating"
               className="form-select mt-1 rounded-lg"
-              defaultValue={null}
+              onChange={handleSearchForm}
+              defaultValue={oParams.rating}
             >
               {animeRatingValues?.map((oValue, iKey) => (
                 <option key={iKey} value={oValue.value}>{oValue.display}</option>
@@ -178,7 +206,7 @@ const SearchSection = () => {
               className="bg-white text-black py-2 px-4 rounded-lg"
               onClick={handleSortToggle}
             >
-              {isAscending ? (
+              {bAscending ? (
                 <ArrowUpIcon className="w-4 h-4 inline-block mr-1" />
               ) : (
                 <ArrowDownIcon className="w-4 h-4 inline-block mr-1" />

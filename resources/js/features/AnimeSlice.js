@@ -13,8 +13,12 @@ const initialState = {
     aAnimeSearch: [],
     oSearchParams: {
       page: 1,
-      order_by: 'popularity',
+      order_by: 'score',
+      type: '',
+      status: '',
+      rating: '',
       limit: 12,
+      q: '',
       sort: 'desc',
     },
     bLoading: true,
@@ -72,6 +76,10 @@ export const animeSlice = createSlice({
         const { value } = action.payload;
         state.oSearchParams.page = value;
       },
+      setSearchParams: (state, action) => {
+        const { name, value } = action.payload;
+        state.oSearchParams[name] = value;
+      }
     },
     extraReducers: (builder) => {
         builder
@@ -109,6 +117,7 @@ export const animeSlice = createSlice({
 export const {
   setLoadingStatus,
   setCurrentPage,
+  setSearchParams,
 } = animeSlice.actions;
 
 export const selectUpcoming = (state) => state.anime.aUpcoming;

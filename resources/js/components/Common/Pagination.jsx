@@ -2,39 +2,54 @@ import { useDispatch, useSelector } from "react-redux";
 import { getAnimeSearch, selectPagination, selectSearchParams, setCurrentPage } from "../../features/AnimeSlice";
 import { useEffect } from "react";
 
-const Pagination = () => {
+const Pagination = ({ setLoading }) => {
   const oPagination = useSelector(selectPagination);
   const aPages = Array.from({ length: oPagination.last_visible_page }, (_, index) => index + 1);
   const oParams = useSelector(selectSearchParams);
   const dispatch = useDispatch();
 
   const getPage = async (iPage) => {
-    dispatch(setCurrentPage({ value: iPage })); //this is reducer function
-    dispatch(getAnimeSearch({...oParams, page: iPage})); //this is async thunk
+    setLoading(true);
+    Promise.all([
+      dispatch(setCurrentPage({ value: iPage })),
+      dispatch(getAnimeSearch({...oParams, page: iPage})),
+    ]).then(() => {
+      setLoading(false);
+    })
   }
 
   return (
     <>
       <nav aria-label="Page navigation">
       <ul className="inline-flex -space-x-px text-sm">
-        {/* <li>
-          <a href="#" aria-current="page" className="flex items-center justify-center px-3 h-8 text-blue-600 border border-gray-300 bg-blue-50 hover:bg-blue-100 hover:text-blue-700 dark:border-gray-700 dark:bg-gray-700 dark:text-white">3</a>
-        </li> */}
         <li>
-          <a href="#" className="flex items-center justify-center px-3 h-8 ml-0 leading-tight text-gray-500 bg-white border border-gray-300 rounded-l-lg hover:bg-gray-100 hover:text-gray-700 dark:bg-gray-800 dark:border-gray-700 dark:text-gray-400 dark:hover:bg-gray-700 dark:hover:text-white">Previous</a>
+          <a 
+          className="flex items-center cursor-pointer justify-center px-3 h-8 ml-0 leading-tight rounded-l-lg text-teal-50 bg-navy border border-pagination-border hover:bg-pagination-border hover:text-white"
+          onClick={(oEvent) => { oPagination.current_page === 1 ? oEvent.preventDefault() : getPage(1); }}
+          >
+            First
+          </a>
+        </li>
+        <li>
+          <a 
+          className="flex items-center cursor-pointer justify-center px-3 h-8 ml-0 leading-tight text-teal-50 bg-navy border border-pagination-border hover:bg-pagination-border hover:text-white"
+          onClick={(oEvent) => { oPagination.current_page === 1 ? oEvent.preventDefault() : getPage((oPagination.current_page - 1)); }}
+          >
+            Prev
+          </a>
         </li>
         {
           aPages?.map((iValue, iKey) => {
             const isActivePage = iValue === oPagination.current_page;
             const pageClass = isActivePage
-              ? 'flex items-center justify-center px-3 h-8 text-blue-600 border border-gray-300 bg-blue-50 hover:bg-blue-100 hover:text-blue-700 dark:border-gray-700 dark:bg-gray-700 dark:text-white'
-              : 'flex items-center justify-center px-3 h-8 leading-tight text-gray-500 bg-white border border-gray-300 hover:bg-gray-100 hover:text-gray-700 dark:bg-gray-800 dark:border-gray-700 dark:text-gray-400 dark:hover:bg-gray-700 dark:hover:text-white';
+              ? 'flex items-center justify-center px-3 h-8 text-teal-50 border border-pagination-border bg-light-navy hover:bg-light-blue hover:text-teal-50'
+              : 'flex items-center justify-center px-3 h-8 leading-tight text-teal-50 bg-navy border border-pagination-border hover:bg-pagination-border hover:text-white';
 
 
             if (
-              (iValue < oPagination.current_page && Math.abs(oPagination.current_page - iValue) <= 2) ||
+              (iValue < oPagination.current_page && Math.abs(oPagination.current_page - iValue) <= 1) ||
               iValue === oPagination.current_page ||
-              (iValue > oPagination.current_page && Math.abs(iValue - oPagination.current_page) <= 2)
+              (iValue > oPagination.current_page && Math.abs(iValue - oPagination.current_page) <= 1)
               ) {
               return (
                 <li key={iKey}>
@@ -51,7 +66,20 @@ const Pagination = () => {
           })
         }
         <li>
-          <a href="#" className="flex items-center justify-center px-3 h-8 leading-tight text-gray-500 bg-white border border-gray-300 rounded-r-lg hover:bg-gray-100 hover:text-gray-700 dark:bg-gray-800 dark:border-gray-700 dark:text-gray-400 dark:hover:bg-gray-700 dark:hover:text-white">Next</a>
+          <a 
+          className="flex items-center cursor-pointer justify-center px-3 h-8 leading-tight text-teal-50 bg-navy border border-pagination-border hover:bg-pagination-border hover:text-white"
+          onClick={(oEvent) => { oPagination.current_page === oPagination.last_visible_page ? oEvent.preventDefault() : getPage((oPagination.current_page + 1)); }}
+          >
+            Next
+          </a>
+        </li>
+        <li>
+          <a 
+          className="flex items-center cursor-pointer justify-center px-3 h-8 ml-0 leading-tight rounded-r-lg text-teal-50 bg-navy border border-pagination-border hover:bg-pagination-border hover:text-white"
+          onClick={() => { oPagination.current_page === oPagination.last_visible_page ? oEvent.preventDefault() : getPage(oPagination.last_visible_page); }}
+          >
+            Last
+          </a>
         </li>
       </ul>
     </nav>
