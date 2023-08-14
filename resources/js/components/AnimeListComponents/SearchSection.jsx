@@ -2,6 +2,7 @@ import { ArrowUpIcon, ArrowDownIcon, MagnifyingGlassIcon } from "@heroicons/reac
 import { useState } from "react";
 import { getAnimeSearch, selectSearchParams, setSearchParams } from "../../features/AnimeSlice";
 import { useDispatch, useSelector } from "react-redux";
+import { DESC, SCORE_VALUE } from "../../constants";
 
 const SearchSection = ({ setLoading }) => {
   const [bAscending, setIsAscending] = useState(false);
@@ -10,7 +11,7 @@ const SearchSection = ({ setLoading }) => {
 
   const orderByValues = [
     {
-      value: 'score',
+      value: SCORE_VALUE,
       display: 'Order By'
     },
     {
@@ -18,7 +19,7 @@ const SearchSection = ({ setLoading }) => {
       display: 'Title',
     },
     {
-      value: 'score',
+      value: SCORE_VALUE,
       display: 'Rating',
     },
     {
@@ -111,7 +112,7 @@ const SearchSection = ({ setLoading }) => {
 
   const handleSortToggle = () => {
     setIsAscending(!bAscending);
-    const sSort = bAscending ? 'desc' : 'asc';
+    const sSort = bAscending ? DESC : ASC;
     setLoading(true);
     Promise.all([
       dispatch(setSearchParams({ name: 'sort', value: sSort})),

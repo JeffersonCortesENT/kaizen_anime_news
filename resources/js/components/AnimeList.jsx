@@ -6,6 +6,7 @@ import Loader from "./Common/Loader";
 import SearchSection from "./AnimeListComponents/SearchSection";
 import AnimeTable from "./AnimeListComponents/AnimeTable";
 import { useEffect, useState } from "react";
+import { SEARCH } from "../constants";
 
 const AnimeList = () => {
   const dispatch = useDispatch();
@@ -32,7 +33,7 @@ const AnimeList = () => {
         {bLoading === true && (
           <Loader/>
         )}
-        <NavBar sCurrentPage={'Search'}/>
+        <NavBar sCurrentPage={SEARCH}/>
 
         <div className="grid grid-cols-1">
           <SearchSection

@@ -2,12 +2,14 @@ import { Fragment } from 'react'
 import { Disclosure, Menu, Transition } from '@headlessui/react'
 import { Bars3Icon, BellIcon, XMarkIcon } from '@heroicons/react/24/outline'
 import { Link } from 'react-router-dom'
+import { HOME, HOME_PATH, SEARCH, SEARCH_PATH } from '../../constants'
 
 const NavBar = ({ sCurrentPage }) => {
   const navigation = [
-    { name: 'Home', href: '/', current: sCurrentPage === 'Home' },
-    { name: 'Search', href: '/search', current: sCurrentPage === 'Search' },
+    { name: HOME, href: HOME_PATH, current: sCurrentPage === HOME },
+    { name: SEARCH, href: SEARCH_PATH, current: sCurrentPage === SEARCH },
   ]
+  const sLogo = '/images/logo/kaizen_1.png';
   
   const classNames = (...classes) => {
     return classes.filter(Boolean).join(' ')
@@ -33,12 +35,12 @@ const NavBar = ({ sCurrentPage }) => {
               <div className="flex flex-1 items-center justify-center sm:items-stretch sm:justify-start">
                 <div className="flex flex-shrink-0 items-center">
                   <img
-                    className="h-8 w-auto"
-                    src="https://tailwindui.com/img/logos/mark.svg?color=indigo&shade=500"
-                    alt="Your Company"
+                    className="h-16 w-auto"
+                    src={sLogo}
+                    alt="Kaizen Logo"
                   />
                 </div>
-                <div className="hidden sm:ml-6 sm:block">
+                <div className="hidden sm:ml-6 sm:block mt-3">
                   <div className="flex space-x-4">
                     {navigation.map((item) => (
                       <Link 

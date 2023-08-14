@@ -44,7 +44,7 @@ const AnimeTable = ({ bTableLoading, setLoading }) => {
           ) 
           : 
           (
-            <div className="flex grow items-center justify-center h-screen lg:h-[500px]">
+            <div className="flex grow items-center justify-center h-[400px] lg:h-[500px]">
               <h1 className="text-center font-bold text-teal-50 text-3xl">No results found!</h1>
             </div>
           )

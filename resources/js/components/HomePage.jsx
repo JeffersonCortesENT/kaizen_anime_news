@@ -8,6 +8,8 @@ import News from "./HomePageComponents/News";
 import TopSeasonal from "./HomePageComponents/TopSeasonal";
 import Footer from "./HomePageComponents/Footer";
 import VideoPlayerModal from "./Common/VideoPlayerModal";
+import sweetAlert from "../alertMessages";
+import { ERROR_MULTIPLE_REQUESTS, ERROR_MULTIPLE_REQUESTS_MESSAGE, HOME } from "../constants";
 
 const HomePage = () => {
   const dispatch = useDispatch();
@@ -22,8 +24,14 @@ const HomePage = () => {
       dispatch(getAnimeNews()),
       dispatch(getTop10Seasonal()),
       dispatch(getTop10Anime())
-    ]).then(() => {
+    ]).finally(() => {
       dispatch(setLoadingStatus({value: false}));
+    }).catch(() => {
+      sweetAlert.error(ERROR_MULTIPLE_REQUESTS, ERROR_MULTIPLE_REQUESTS_MESSAGE).then((oResult) => {
+        if (oResult.isConfirmed === true) {
+          window.location.reload();
+        }
+      });
     });
   }
 
@@ -37,7 +45,7 @@ const HomePage = () => {
         {bLoading === true && (
           <Loader/>
         )}
-        <NavBar sCurrentPage={'Home'}/>
+        <NavBar sCurrentPage={HOME}/>
         {/* <div className="grid grid-cols-2 sm:grid-cols-2 md:grid-cols-3 lg:grid-cols-4"></div> */}
         <div className="grid grid-cols-1">
           <Upcoming/>

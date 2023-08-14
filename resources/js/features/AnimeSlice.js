@@ -1,5 +1,7 @@
 import { createAsyncThunk, createSlice } from '@reduxjs/toolkit';
 import { fetchAnimeNews, fetchAnimeSearch, fetchTop10Anime, fetchTop10Seasonal, fetchUpcoming } from '../requests/externalApi';
+import sweetAlert from '../alertMessages';
+import { DESC, SCORE_VALUE } from '../constants';
 
 const initialState = {
     aUpcoming: [],
@@ -13,13 +15,13 @@ const initialState = {
     aAnimeSearch: [],
     oSearchParams: {
       page: 1,
-      order_by: 'score',
+      order_by: SCORE_VALUE,
       type: '',
       status: '',
       rating: '',
       limit: 12,
       q: '',
-      sort: 'desc',
+      sort: DESC,
     },
     bLoading: true,
 };
@@ -27,17 +29,17 @@ const initialState = {
 export const getUpcoming = createAsyncThunk(
   'anime/getUpcoming',
   async (oParams) => {
-      const oResponse = await fetchUpcoming(oParams);
-      return oResponse.data
+    const oResponse = await fetchUpcoming(oParams);
+    return oResponse.data
   }
 );
 
 export const getAnimeNews = createAsyncThunk(
-    'anime/getAnimeNews',
-    async (oParams) => {
-        const oResponse = await fetchAnimeNews(oParams);
-        return oResponse.data
-    }
+  'anime/getAnimeNews',
+  async (oParams) => {
+      const oResponse = await fetchAnimeNews(oParams);
+      return oResponse.data
+  }
 );
 
 export const getTop10Seasonal = createAsyncThunk(
@@ -83,32 +85,37 @@ export const animeSlice = createSlice({
     },
     extraReducers: (builder) => {
         builder
-            // .addCase(getUpcoming.pending, (state) => {
-            //   state.bLoading = true;
-            // })
             .addCase(getUpcoming.fulfilled, (state, action) => {
-                state.aUpcoming = action.payload.data.data;
-                state.bLoading = false;
+              state.aUpcoming = action.payload.data.data;
+              state.bLoading = false;
             })
-            // .addCase(getAnimeNews.pending, (state) => {
-            //     state.bLoading = true;
-            // })
+            .addCase(getUpcoming.rejected, (state, action) => {
+              state.bLoading = false;
+              throw action.error;
+            })
             .addCase(getAnimeNews.fulfilled, (state, action) => {
-                state.aAnimeNews = action.payload.data;
-                state.bLoading = false;
+              state.aAnimeNews = action.payload.data;
+              state.bLoading = false;
             })
-            // .addCase(getTop10Seasonal.pending, (state) => {
-            //   state.bLoading = true;
-            // })
+            .addCase(getAnimeNews.rejected, (state, action) => {
+              state.bLoading = false;
+              throw action.error;
+            })
             .addCase(getTop10Seasonal.fulfilled, (state, action) => {
-                state.aTop10Seasonal = action.payload.data.data;
-                console.log(state.aTop10Seasonal);
-                state.bLoading = false;
+              state.aTop10Seasonal = action.payload.data.data;
+              state.bLoading = false;
+            })
+            .addCase(getTop10Seasonal.rejected, (state, action) => {
+              state.bLoading = false;
+              throw action.error;
             })
             .addCase(getAnimeSearch.fulfilled, (state, action) => {
+              state.bLoading = false;
               state.aAnimeSearch = action.payload.data.data;
               state.oPagination = action.payload.data.pagination;
-              console.log(state.aAnimeSearch);
+            })
+            .addCase(getAnimeSearch.rejected, (state) => {
+              sweetAlert.error('Request Error', 'An error occured!');
               state.bLoading = false;
             })
     }

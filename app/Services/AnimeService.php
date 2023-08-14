@@ -2,6 +2,7 @@
 namespace App\Services;
 
 use App\Constants\ApiConstants;
+use App\Constants\AppConstants;
 use App\Library\RequestLibrary;
 use Jikan\MyAnimeList\MalClient;
 use \Jikan\Helper\Constants;
@@ -19,7 +20,8 @@ class AnimeService
 
   public function fetchUpcoming()
   {
-    $aUpcoming = RequestLibrary::getRequest('https://api.jikan.moe/v4/seasons/upcoming', [
+    $aUpcoming = RequestLibrary::getRequest(
+      AppConstants::JIKAN_API_URL. AppConstants::JIKAN_VERSION  .'/seasons/upcoming', [
       ApiConstants::LIMIT => 10,
     ]);
 
@@ -62,7 +64,8 @@ class AnimeService
 
   public function fetchTop10Seasonal()
   {
-    $aTop10Seasonal = RequestLibrary::getRequest('https://api.jikan.moe/v4/seasons/now', [
+    $aTop10Seasonal = RequestLibrary::getRequest(
+      AppConstants::JIKAN_API_URL. AppConstants::JIKAN_VERSION  .'/seasons/now', [
       ApiConstants::LIMIT => 10,
     ]);
 
@@ -74,7 +77,7 @@ class AnimeService
 
   public function fetchTop10Anime()
   {
-    $aTop10Anime = RequestLibrary::getRequest('https://api.jikan.moe/v4/top/anime', [
+    $aTop10Anime = RequestLibrary::getRequest(AppConstants::JIKAN_API_URL. AppConstants::JIKAN_VERSION  .'/top/anime', [
       ApiConstants::LIMIT => 10,
     ]);
 
@@ -86,7 +89,8 @@ class AnimeService
 
   public function fetchAnimeSearch(array $aParameters)
   {
-    $aTop10Anime = RequestLibrary::getRequest('https://api.jikan.moe/v4/anime', $aParameters);
+    $aTop10Anime = RequestLibrary::getRequest(
+      AppConstants::JIKAN_API_URL. AppConstants::JIKAN_VERSION  .'/anime', $aParameters);
 
     return [
       ApiConstants::CODE => $aTop10Anime[ApiConstants::CODE],
