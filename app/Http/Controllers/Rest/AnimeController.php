@@ -1,10 +1,8 @@
 <?php
 namespace App\Http\Controllers\Rest;
 
-use App\Constants\AppConstants;
+use App\Http\Requests\SearchAnimeRequest;
 use App\Services\AnimeService;
-use Illuminate\Http\Request;
-use Illuminate\Support\Facades\Log;
 
 class AnimeController
 {
@@ -15,27 +13,33 @@ class AnimeController
     $this->oAnnService = $oAnnService;
   }
 
-  public function fetchUpcoming(Request $oRequest)
+  public function fetchUpcoming()
   {
-    $aResponse = $this->oAnnService->fetchUpcoming($oRequest->all());
+    $aResponse = $this->oAnnService->fetchUpcoming();
     return response()->json($aResponse);
   }
 
-  public function fetchAnimeNews(Request $oRequest)
+  public function fetchAnimeNews()
   {
-    $aResponse = $this->oAnnService->fetchAnimeNews($oRequest->all());
+    $aResponse = $this->oAnnService->fetchAnimeNews();
     return response()->json($aResponse);
   }
 
-  public function fetchTop10Seasonal(Request $oRequest)
+  public function fetchTop10Seasonal()
   {
-    $aResponse = $this->oAnnService->fetchTop10Seasonal($oRequest->all());
+    $aResponse = $this->oAnnService->fetchTop10Seasonal();
     return response()->json($aResponse);
   }
 
-  public function fetchTop10Anime(Request $oRequest)
+  public function fetchTop10Anime()
   {
-    $aResponse = $this->oAnnService->fetchTop10Anime($oRequest->all());
+    $aResponse = $this->oAnnService->fetchTop10Anime();
+    return response()->json($aResponse);
+  }
+
+  public function fetchSearchAnime(SearchAnimeRequest $oRequest)
+  {
+    $aResponse = $this->oAnnService->fetchAnimeSearch($oRequest->all());
     return response()->json($aResponse);
   }
 }

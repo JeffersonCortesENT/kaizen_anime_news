@@ -29,10 +29,6 @@ const News = () => {
     }
   };
 
-  useEffect(() => {
-    console.log(aNews);
-  })
-
   return (
     <>
       <div className="bg-light-navy p-6">

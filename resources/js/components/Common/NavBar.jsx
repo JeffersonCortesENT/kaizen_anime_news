@@ -1,17 +1,20 @@
 import { Fragment } from 'react'
 import { Disclosure, Menu, Transition } from '@headlessui/react'
 import { Bars3Icon, BellIcon, XMarkIcon } from '@heroicons/react/24/outline'
+import { Link } from 'react-router-dom'
+import { HOME, HOME_PATH, SEARCH, SEARCH_PATH } from '../../constants'
 
-const navigation = [
-  { name: 'Home', href: '#', current: true },
-  { name: 'Search', href: '#', current: false },
-]
+const NavBar = ({ sCurrentPage }) => {
+  const navigation = [
+    { name: HOME, href: HOME_PATH, current: sCurrentPage === HOME },
+    { name: SEARCH, href: SEARCH_PATH, current: sCurrentPage === SEARCH },
+  ]
+  const sLogo = '/images/logo/kaizen_1.png';
+  
+  const classNames = (...classes) => {
+    return classes.filter(Boolean).join(' ')
+  }
 
-const classNames = (...classes) => {
-  return classes.filter(Boolean).join(' ')
-}
-
-const NavBar = () => {
   return (
     <Disclosure as="nav" className="bg-navy">
       {({ open }) => (
@@ -32,17 +35,17 @@ const NavBar = () => {
               <div className="flex flex-1 items-center justify-center sm:items-stretch sm:justify-start">
                 <div className="flex flex-shrink-0 items-center">
                   <img
-                    className="h-8 w-auto"
-                    src="https://tailwindui.com/img/logos/mark.svg?color=indigo&shade=500"
-                    alt="Your Company"
+                    className="h-16 w-auto"
+                    src={sLogo}
+                    alt="Kaizen Logo"
                   />
                 </div>
-                <div className="hidden sm:ml-6 sm:block">
+                <div className="hidden sm:ml-6 sm:block mt-3">
                   <div className="flex space-x-4">
                     {navigation.map((item) => (
-                      <a
+                      <Link 
                         key={item.name}
-                        href={item.href}
+                        to={item.href}
                         className={classNames(
                           item.current ? 'bg-gray-900 text-white' : 'text-gray-300 hover:bg-gray-700 hover:text-white',
                           'rounded-md px-3 py-2 text-sm font-medium'
@@ -50,7 +53,7 @@ const NavBar = () => {
                         aria-current={item.current ? 'page' : undefined}
                       >
                         {item.name}
-                      </a>
+                      </Link>
                     ))}
                   </div>
                 </div>
