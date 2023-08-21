@@ -7,6 +7,8 @@ export const HOME = 'Home';
 export const HOME_PATH = '/';
 export const SEARCH = 'Search';
 export const SEARCH_PATH = '/search';
+export const DETAILS = 'DETAILS';
+export const DETAILS_PATH = '/anime/:mal_id';
 
 //Search Filter
 export const SCORE_VALUE = 'score';

@@ -2,9 +2,12 @@ import { useSelector } from "react-redux";
 import { selectAnimeSearch, selectTopSeasonal } from "../../features/AnimeSlice";
 import Pagination from "../Common/Pagination";
 import { useState } from "react";
+import { useNavigate } from "react-router";
+import { Link } from "react-router-dom";
 
 const AnimeTable = ({ bTableLoading, setLoading }) => {
   const aAnime = useSelector(selectAnimeSearch);
+  const navigate = useNavigate;
 
   return (
     <>
@@ -24,7 +27,7 @@ const AnimeTable = ({ bTableLoading, setLoading }) => {
           aAnime.length > 0 ? 
           (
             aAnime?.map((aData, iKey) => (
-              <div key={iKey} className="w-1/4 h-[100px] sm:h-[200px] md:h-[200px] lg:h-[600px] p-3 cursor-pointer">
+              <a href={`/anime/${aData.mal_id}`} key={iKey} className="w-1/4 h-[100px] sm:h-[200px] md:h-[200px] lg:h-[600px] p-3 cursor-pointer">
                 <div className="relative h-full">
                   <img src={aData.images.webp.large_image_url} className="w-full h-full object-cover" alt={aData.title}/>
                   <div className="absolute bottom-0 left-0 w-full bg-gray-500/50 text-teal-50 hidden sm:block" style={{ maxHeight: "25%" }}>
@@ -39,7 +42,10 @@ const AnimeTable = ({ bTableLoading, setLoading }) => {
                     <h3 className="font-sans font-bold text-sm md:text-base lg:text-xl text-center">{aData.title}</h3>
                   </div>
                 </div>
-              </div>
+              </a>
+              // <Link to={`/anime/${aData.mal_id}`} key={iKey} className="w-1/4 h-[100px] sm:h-[200px] md:h-[200px] lg:h-[600px] p-3 cursor-pointer">
+                
+              // </Link>
             ))
           ) 
           : 

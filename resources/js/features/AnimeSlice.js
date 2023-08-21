@@ -1,5 +1,5 @@
 import { createAsyncThunk, createSlice } from '@reduxjs/toolkit';
-import { fetchAnimeNews, fetchAnimeSearch, fetchTop10Anime, fetchTop10Seasonal, fetchUpcoming } from '../requests/externalApi';
+import { fetchAnimeChars, fetchAnimeFull, fetchAnimeNews, fetchAnimePictures, fetchAnimeSearch, fetchAnimeStaff, fetchTop10Anime, fetchTop10Seasonal, fetchUpcoming } from '../requests/externalApi';
 import sweetAlert from '../alertMessages';
 import { DESC, SCORE_VALUE } from '../constants';
 
@@ -7,6 +7,10 @@ const initialState = {
     aUpcoming: [],
     aAnimeNews: [],
     aTop10Seasonal: [],
+    aAnimeFull: {},
+    aAnimeChars: [],
+    aAnimeStaff: [],
+    aAnimePictures: [],
     oPagination: {
       last_visible_page: 0,
       has_next_page: false,
@@ -66,6 +70,38 @@ export const getAnimeSearch = createAsyncThunk(
   }
 );
 
+export const getAnimeFull = createAsyncThunk(
+  'anime/getAnimeFull',
+  async (iMalId) => {
+      const oResponse = await fetchAnimeFull(iMalId);
+      return oResponse.data
+  }
+);
+
+export const getAnimeChars = createAsyncThunk(
+  'anime/getAnimeChars',
+  async (iMalId) => {
+      const oResponse = await fetchAnimeChars(iMalId);
+      return oResponse.data
+  }
+);
+
+export const getAnimeStaff = createAsyncThunk(
+  'anime/getAnimeStaff',
+  async (iMalId) => {
+      const oResponse = await fetchAnimeStaff(iMalId);
+      return oResponse.data
+  }
+);
+
+export const getAnimePictures = createAsyncThunk(
+  'anime/getAnimePictures',
+  async (iMalId) => {
+      const oResponse = await fetchAnimePictures(iMalId);
+      return oResponse.data
+  }
+);
+
 export const animeSlice = createSlice({
     name: 'anime',
     initialState,
@@ -118,6 +154,42 @@ export const animeSlice = createSlice({
               sweetAlert.error('Request Error', 'An error occured!');
               state.bLoading = false;
             })
+            .addCase(getAnimeFull.fulfilled, (state, action) => {
+              state.aAnimeFull = action.payload.data.data;
+              console.log(state.aAnimeFull);
+              state.bLoading = false;
+            })
+            .addCase(getAnimeFull.rejected, (state, action) => {
+              state.bLoading = false;
+              throw action.error;
+            })
+            .addCase(getAnimeChars.fulfilled, (state, action) => {
+              state.aAnimeChars = action.payload.data.data;
+              console.log(state.aAnimeChars);
+              state.bLoading = false;
+            })
+            .addCase(getAnimeChars.rejected, (state, action) => {
+              state.bLoading = false;
+              throw action.error;
+            })
+            .addCase(getAnimeStaff.fulfilled, (state, action) => {
+              state.aAnimeStaff = action.payload.data.data;
+              console.log(state.aAnimeStaff);
+              state.bLoading = false;
+            })
+            .addCase(getAnimeStaff.rejected, (state, action) => {
+              state.bLoading = false;
+              throw action.error;
+            })
+            .addCase(getAnimePictures.fulfilled, (state, action) => {
+              state.aAnimePictures = action.payload.data.data;
+              console.log(state.aAnimePictures);
+              state.bLoading = false;
+            })
+            .addCase(getAnimePictures.rejected, (state, action) => {
+              state.bLoading = false;
+              throw action.error;
+            })
     }
 });
 
@@ -134,5 +206,9 @@ export const selectTopSeasonal = (state) => state.anime.aTop10Seasonal;
 export const selectAnimeSearch = (state) => state.anime.aAnimeSearch;
 export const selectPagination = (state) => state.anime.oPagination;
 export const selectSearchParams = (state) => state.anime.oSearchParams;
+export const selectAnimeFull = (state) => state.anime.aAnimeFull;
+export const selectAnimeChars = (state) => state.anime.aAnimeChars;
+export const selectAnimeStaff = (state) => state.anime.aAnimeStaff;
+export const selectAnimePictures = (state) => state.anime.aAnimePictures;
 
 export default animeSlice.reducer;

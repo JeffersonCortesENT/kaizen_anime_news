@@ -89,12 +89,60 @@ class AnimeService
 
   public function fetchAnimeSearch(array $aParameters)
   {
-    $aTop10Anime = RequestLibrary::getRequest(
+    $aSearchAnime = RequestLibrary::getRequest(
       AppConstants::JIKAN_API_URL. AppConstants::JIKAN_VERSION  .'/anime', $aParameters);
 
     return [
-      ApiConstants::CODE => $aTop10Anime[ApiConstants::CODE],
-      ApiConstants::DATA => $aTop10Anime[ApiConstants::DATA]
+      ApiConstants::CODE => $aSearchAnime[ApiConstants::CODE],
+      ApiConstants::DATA => $aSearchAnime[ApiConstants::DATA]
+    ];
+  }
+
+  public function fetchAnimeFull(int $iMalId)
+  {
+    $aAnimeFull = RequestLibrary::getRequest(
+      AppConstants::JIKAN_API_URL . AppConstants::JIKAN_VERSION .
+      AppConstants::JIKAN_ANIME . $iMalId . '/full');
+
+    return [
+      ApiConstants::CODE => $aAnimeFull[ApiConstants::CODE],
+      ApiConstants::DATA => $aAnimeFull[ApiConstants::DATA]
+    ];
+  }
+
+  public function fetchAnimeCharacters(int $iMalId)
+  {
+    $aAnimeChars = RequestLibrary::getRequest(
+      AppConstants::JIKAN_API_URL . AppConstants::JIKAN_VERSION .
+      AppConstants::JIKAN_ANIME . $iMalId . '/characters');
+
+    return [
+      ApiConstants::CODE => $aAnimeChars[ApiConstants::CODE],
+      ApiConstants::DATA => $aAnimeChars[ApiConstants::DATA]
+    ];
+  }
+
+  public function fetchAnimeStaff(int $iMalId)
+  {
+    $aAnimeStaff = RequestLibrary::getRequest(
+      AppConstants::JIKAN_API_URL . AppConstants::JIKAN_VERSION .
+      AppConstants::JIKAN_ANIME . $iMalId . '/staff');
+
+    return [
+      ApiConstants::CODE => $aAnimeStaff[ApiConstants::CODE],
+      ApiConstants::DATA => $aAnimeStaff[ApiConstants::DATA]
+    ];
+  }
+
+  public function fetchAnimePictures(int $iMalId)
+  {
+    $aAnimePictures = RequestLibrary::getRequest(
+      AppConstants::JIKAN_API_URL . AppConstants::JIKAN_VERSION .
+      AppConstants::JIKAN_ANIME . $iMalId . '/pictures');
+
+    return [
+      ApiConstants::CODE => $aAnimePictures[ApiConstants::CODE],
+      ApiConstants::DATA => $aAnimePictures[ApiConstants::DATA]
     ];
   }
 }

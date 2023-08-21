@@ -37,6 +37,16 @@ export default withMT(
           'yellow': '#F4D160',
           'light-yellow': '#FBEEAC',
           'pagination-border': '#1D5D9B',
+          'title-section': '#0F084B',
+          'light-pink': '#FE7BE5',
+          'mid-purple': '#974EC3', 
+          'dark-purple': '#504099', 
+          'blue-gray': '#313866', 
+          'mid-blue': '#1f71a9', //Sub Details
+          'light-gray-blue': '#77b2d0', //Cast and Characters
+          'light-gray': '#e7e7e7',
+          'silver-shade': '#b8beca', //Producers
+          'dark-blue-gray': '#577290', //Trailer
         }
       },
     },
