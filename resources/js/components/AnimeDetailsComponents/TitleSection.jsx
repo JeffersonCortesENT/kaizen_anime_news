@@ -6,7 +6,6 @@ import numeral from 'numeral';
 
 const TitleSection = () => {
   const oAnimeFull = useSelector(selectAnimeFull);
-  const oAnimePictures = useSelector(selectAnimePictures);
   const [bExpanded, setExpanded] = useState(false);
   const mLineHeight = 1.5; // Adjust this based on your design
 
@@ -70,26 +69,31 @@ const TitleSection = () => {
             </button>
           )}
 
-          {/* Div below the text section */}
           <div className="mt-4 flex flex-row text-teal-50">
-            {/* Item 1 */}
-            <div className="flex items-center mr-4 space-x-2">
-              <StarIcon className="w-5 h-5 text-yellow"/> 
-              <span>{ oAnimeFull.score }</span>
-            </div>
-
-
-            {/* Item 2 */}
-            <div className="flex items-center mr-4 space-x-2">
-              <ChartBarIcon className="w-5 h-5 text-yellow"/> 
-              <span>{ oAnimeFull.popularity }</span>
-            </div>
-
-            {/* Item 3 */}
-            <div className="flex items-center space-x-2">
-              <UserGroupIcon className="w-5 h-5 text-yellow"/> 
-              <span>{ numeral(oAnimeFull.members).format() }</span>
-            </div>
+            {
+              oAnimeFull.score !== null && (
+                <div className="flex items-center mr-4 space-x-2">
+                  <StarIcon className="w-5 h-5 text-yellow"/> 
+                  <span>{ oAnimeFull.score }</span>
+                </div>
+              )
+            }
+            {
+              oAnimeFull.popularity !== null && (
+                <div className="flex items-center mr-4 space-x-2">
+                  <ChartBarIcon className="w-5 h-5 text-yellow"/> 
+                  <span>{ oAnimeFull.popularity }</span>
+                </div>
+              )
+            }
+            {
+              oAnimeFull.members !== null && (
+                <div className="flex items-center space-x-2">
+                  <UserGroupIcon className="w-5 h-5 text-yellow"/> 
+                  <span>{ numeral(oAnimeFull.members).format() }</span>
+                </div>
+              )
+            }
           </div>
         </div>
       </div>

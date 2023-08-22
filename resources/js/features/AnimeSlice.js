@@ -156,38 +156,27 @@ export const animeSlice = createSlice({
             })
             .addCase(getAnimeFull.fulfilled, (state, action) => {
               state.aAnimeFull = action.payload.data.data;
-              console.log(state.aAnimeFull);
-              state.bLoading = false;
             })
             .addCase(getAnimeFull.rejected, (state, action) => {
-              state.bLoading = false;
               throw action.error;
             })
             .addCase(getAnimeChars.fulfilled, (state, action) => {
               state.aAnimeChars = action.payload.data.data;
-              console.log(state.aAnimeChars);
-              state.bLoading = false;
             })
             .addCase(getAnimeChars.rejected, (state, action) => {
-              state.bLoading = false;
               throw action.error;
             })
             .addCase(getAnimeStaff.fulfilled, (state, action) => {
               state.aAnimeStaff = action.payload.data.data;
-              console.log(state.aAnimeStaff);
-              state.bLoading = false;
             })
             .addCase(getAnimeStaff.rejected, (state, action) => {
-              state.bLoading = false;
               throw action.error;
             })
             .addCase(getAnimePictures.fulfilled, (state, action) => {
               state.aAnimePictures = action.payload.data.data;
               console.log(state.aAnimePictures);
-              state.bLoading = false;
             })
             .addCase(getAnimePictures.rejected, (state, action) => {
-              state.bLoading = false;
               throw action.error;
             })
     }

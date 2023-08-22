@@ -2,7 +2,7 @@ import { ArrowUpIcon, ArrowDownIcon, MagnifyingGlassIcon } from "@heroicons/reac
 import { useState } from "react";
 import { getAnimeSearch, selectSearchParams, setSearchParams } from "../../features/AnimeSlice";
 import { useDispatch, useSelector } from "react-redux";
-import { DESC, SCORE_VALUE } from "../../constants";
+import { ASC, DESC, SCORE_VALUE } from "../../constants";
 
 const SearchSection = ({ setLoading }) => {
   const [bAscending, setIsAscending] = useState(false);

@@ -10,9 +10,9 @@ class Main extends Component {
     return (
       <div>
         <Routes>
-          <Route path={HOME_PATH} element={<HomePage/>}/>
-          <Route path={SEARCH_PATH} element={<AnimeList/>}/>
           <Route path={DETAILS_PATH} element={<AnimeDetails/>}/>
+          <Route path={SEARCH_PATH} element={<AnimeList/>}/>
+          <Route path={HOME_PATH} element={<HomePage/>}/>
         </Routes>
       </div>
     );

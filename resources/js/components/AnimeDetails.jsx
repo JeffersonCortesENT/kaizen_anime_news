@@ -1,6 +1,6 @@
-import { useParams } from "react-router";
+import { useLocation, useParams } from "react-router";
 import NavBar from "./Common/NavBar";
-import { useEffect } from "react";
+import { useEffect, useState } from "react";
 import Footer from "./HomePageComponents/Footer";
 import { useDispatch, useSelector } from "react-redux";
 import { getAnimeChars, getAnimeFull, getAnimePictures, getAnimeStaff, selectLoading, setLoadingStatus } from "../features/AnimeSlice";
@@ -8,13 +8,16 @@ import TitleSection from "./AnimeDetailsComponents/TitleSection";
 import Loader from "./Common/Loader";
 import SubDetailsSection from "./AnimeDetailsComponents/SubDetailsSection";
 import TrailerSection from "./AnimeDetailsComponents/TrailerSection";
+import sweetAlert from "../alertMessages";
+import { ERROR_MULTIPLE_REQUESTS, ERROR_MULTIPLE_REQUESTS_MESSAGE } from "../constants";
 
 
 
 const AnimeDetails = () => {
   const dispatch = useDispatch();
-  const bLoading = useSelector(selectLoading);
+  const [bLoading, setLoading] = useState(true);
   const { mal_id } = useParams();
+  const [prevMalId, setPrevMalId] = useState(null);
   const MAX_RETRIES = 3;
 
   const retryPromise = async (promise, retries) => {
@@ -39,9 +42,13 @@ const AnimeDetails = () => {
     await Promise.all(
       aPromises.map(promise => retryPromise(() => promise, MAX_RETRIES))
     ).finally(() => {
-      dispatch(setLoadingStatus({value: false}));
-    }).catch((oError) => {
-
+      setLoading(false);
+    }).catch(() => {
+      sweetAlert.error(ERROR_MULTIPLE_REQUESTS, ERROR_MULTIPLE_REQUESTS_MESSAGE).then((oResult) => {
+        if (oResult.isConfirmed === true) {
+          window.location.reload();
+        }
+      });
     });
   }
 
@@ -51,30 +58,29 @@ const AnimeDetails = () => {
 
   return (
     <>
-      {
-        bLoading === true ? 
-        (
-          <Loader/>
-        )
-        :
-        (
-          <>
-            <NavBar/>
-              <TitleSection/>
-              <div className="flex flex-col md:flex-row justify-between bg-light-navy p-4">
-                <SubDetailsSection/>
-                <div className="flex flex-col items-center justify-center w-full h-32">
-                  <TrailerSection/>
-                  <div className="flex w-full h-32 bg-light-gray-blue">
-                  </div>
-                  <div className="flex w-full h-32 bg-silver-shade">
+      <div>
+        {
+          bLoading === true ? (
+            <Loader/>
+          ) : (
+            <>
+              <NavBar/>
+                <TitleSection/>
+                <div className="flex flex-col md:flex-row justify-between bg-light-navy p-4">
+                  <SubDetailsSection/>
+                  <div className="flex flex-col w-full">
+                    <TrailerSection/>
+                    <div className="flex w-full h-32 bg-light-gray-blue">
+                    </div>
+                    <div className="flex w-full h-32 bg-silver-shade">
+                    </div>
                   </div>
                 </div>
-              </div>
-            <Footer/>
-          </>
-        )
-      }
+              <Footer/>
+            </>
+          )
+        }
+      </div>
     </>
   );
 }

@@ -1,29 +1,93 @@
 import { useSelector } from "react-redux";
 import { selectAnimeFull } from "../../features/AnimeSlice";
+import { useEffect, useState } from "react";
+import { PlayCircleIcon } from "@heroicons/react/24/solid";
 
 const TrailerSection = () => {
   const oAnimeFull = useSelector(selectAnimeFull);
+  const [iTrailerViewPort, setTrailerViewPort] = useState(100);
+  const oStreamingServices = {
+    'Crunchyroll': '/images/streaming/crunchyroll.png',
+    'Funimation': '/images/streaming/funimation.png',
+    'Netflix': '/images/streaming/netflix.png',
+    'Animax Korea': '/images/streaming/animax.png',
+    'Animax Mongolia': '/images/streaming/animax.png',
+    'Bilibili Global': '/images/streaming/bilibili.png',
+    'iQIYI': '/images/streaming/iqiyi.png',
+  };
+
+  const getViewPort = () => {
+    const iWidth = window.innerWidth;
+    const oBreakPoints = {
+      sm: (iWidth >= 640 && iWidth < 768),
+      md: (iWidth >= 768 && iWidth < 1024),
+      lg: (iWidth >= 1024 && iWidth < 1280),
+      xl: (iWidth >= 1280),
+    };
+    
+
+    console.log(iWidth);
+    if (oBreakPoints.xl === true || oBreakPoints.lg === true) {
+      setTrailerViewPort(60);
+    } else if (oBreakPoints.md === true || oBreakPoints.sm === true) {
+      setTrailerViewPort(100);
+    }
+  };
+
+  useEffect(() => {
+    getViewPort();
+  }, [])
 
   return (
     <>
-      <div className="flex w-full h-full bg-dark-blue-gray">
-        {/* <div className="w-full h-full" style={{ paddingTop: "56.25%" }}>
-          <iframe
-            src={oAnimeFull.trailer.embed_url}
-            className="absolute inset-0 w-full h-full aspect-video"
-            allow="accelerometer; autoplay; clipboard-write; encrypted-media; gyroscope; picture-in-picture"
-            allowFullScreen
-          ></iframe>
-        </div> */}
-        <div className="relative w-2/3 h-96 rounded xl:block">
-            <iframe
-                src={oAnimeFull.trailer.embed_url}
-                title="hehe"
-                frameborder="0"
-                className="absolute top-0 bottom-0 w-full h-full"
-            ></iframe>
-        </div>
-      </div>
+      {
+        (oAnimeFull.trailer.embed_url !== null || oAnimeFull.streaming.length > 0) && (
+          <>
+            <div className="flex flex-col w-full p-6 justify-center items-center bg-dark-blue-gray">
+              { 
+                oAnimeFull.trailer.embed_url !== null && (
+                  <div className="aspect-wrapper" style={{ width: iTrailerViewPort + '%', height: 'calc('+ iTrailerViewPort +'vw * 9 / 16)' }}>
+                    <iframe
+                      src={oAnimeFull.trailer.embed_url}
+                      className="w-full h-full"
+                      allow="accelerometer; clipboard-write; encrypted-media; gyroscope; picture-in-picture"
+                      allowFullScreen
+                    ></iframe>
+                  </div>
+                ) 
+              }
+              {
+                oAnimeFull.streaming.length > 0 && (
+                  <>
+                    <div className="text-teal-50 my-3">
+                      <span className="font-bold">Available on: </span>
+                    </div>
+                    <div className="flex space-x-4">
+                      {
+                        oAnimeFull.streaming?.map((oStream, iKey) => (
+                          typeof oStreamingServices[oStream.name] === 'undefined' ? 
+                          (
+                            <a key={iKey} href={oStream.url} target="_blank" rel="noopener noreferrer">
+                              <PlayCircleIcon className="w-7 h-7 lg:w-10 lg:h-10 text-teal-50" alt={oStream.name}/>
+                              <span className="text-sm">{oStream.name}</span>
+                            </a>
+                          )
+                          :
+                          (
+                            <a key={iKey} href={oStream.url} target="_blank" rel="noopener noreferrer">
+                              <img src={oStreamingServices[oStream.name]} alt={oStream.name} className="w-7 h-7 lg:w-10 lg:h-10" />
+                            </a>
+                          )
+                        ))
+                      }
+                    </div>
+                  </>
+                )
+              }
+            </div>
+          </>
+        )
+      }
     </>
   );
 }

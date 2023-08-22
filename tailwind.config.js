@@ -1,23 +1,6 @@
 /** @type {import('tailwindcss').Config} */
 const withMT = require("@material-tailwind/react/utils/withMT");
 
-// export default {
-//   content: [
-//     './resources/**/*.blade.php',
-//     './resources/**/*.js',
-//     './resources/**/*.jsx',
-//   ],
-//   theme: {
-//     extend: {
-//       colors: {
-//         'header-upcoming': '#1f2937'
-//       }
-//     },
-//   },
-//   plugins: [
-//   ],
-// }
-
 export default withMT(
   {
     content: [
@@ -47,7 +30,26 @@ export default withMT(
           'light-gray': '#e7e7e7',
           'silver-shade': '#b8beca', //Producers
           'dark-blue-gray': '#577290', //Trailer
-        }
+        },
+        position: {
+          'aspect-wrapper': {
+            position: 'relative',
+            width: '100%',
+            paddingBottom: '56.25%', /* 16:9 aspect ratio */
+          }
+        },
+        inset: {
+          '0': '0',
+          // ... other values ...
+        },
+        // Add your iframe styles here
+        iframe: {
+          position: 'absolute',
+          top: '0',
+          left: '0',
+          width: '100%',
+          height: '100%',
+        },
       },
     },
     plugins: [

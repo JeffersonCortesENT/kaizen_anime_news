@@ -6,7 +6,7 @@ const SubDetailsSection = () => {
 
   return (
     <>
-      <div className="flex flex-row md:flex-col flex-wrap justify-between bg-mid-blue text-xs lg:text-sm text-teal-50 p-4 w-full md:w-40">
+      <div className="flex flex-row md:flex-col flex-wrap justify-between md:justify-start bg-mid-blue text-xs lg:text-sm text-teal-50 p-4 w-full md:w-40">
         <div className="mb-4">
           <p className="font-bold">Rating</p>
           <p className="font-normal">{ oAnimeFull.rating }</p>
