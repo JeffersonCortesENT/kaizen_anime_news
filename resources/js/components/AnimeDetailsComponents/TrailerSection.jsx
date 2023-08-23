@@ -24,9 +24,7 @@ const TrailerSection = () => {
       lg: (iWidth >= 1024 && iWidth < 1280),
       xl: (iWidth >= 1280),
     };
-    
 
-    console.log(iWidth);
     if (oBreakPoints.xl === true || oBreakPoints.lg === true) {
       setTrailerViewPort(60);
     } else if (oBreakPoints.md === true || oBreakPoints.sm === true) {

@@ -10,6 +10,7 @@ import SubDetailsSection from "./AnimeDetailsComponents/SubDetailsSection";
 import TrailerSection from "./AnimeDetailsComponents/TrailerSection";
 import sweetAlert from "../alertMessages";
 import { ERROR_MULTIPLE_REQUESTS, ERROR_MULTIPLE_REQUESTS_MESSAGE } from "../constants";
+import CharactersSection from "./AnimeDetailsComponents/CharactersSection";
 
 
 
@@ -70,8 +71,7 @@ const AnimeDetails = () => {
                   <SubDetailsSection/>
                   <div className="flex flex-col w-full">
                     <TrailerSection/>
-                    <div className="flex w-full h-32 bg-light-gray-blue">
-                    </div>
+                    <CharactersSection/>
                     <div className="flex w-full h-32 bg-silver-shade">
                     </div>
                   </div>
