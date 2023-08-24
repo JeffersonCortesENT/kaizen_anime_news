@@ -1,5 +1,5 @@
 
-const VideoPlayerModal = ({ bShowModal, setShowModal, oVideoUrl }) => {
+const Modal = ({ bShowModal, setShowModal, oContent, sTitle }) => {
 
   return (
     <>
@@ -9,19 +9,19 @@ const VideoPlayerModal = ({ bShowModal, setShowModal, oVideoUrl }) => {
             <div
               className="justify-center items-center flex overflow-x-hidden overflow-y-auto fixed inset-0 z-50 outline-none focus:outline-none"
             >
-              <div className="relative w-1/2 my-6 mx-auto max-w-3xl">
+              <div className="relative w-64 md:w-1/2 my-6 mx-auto max-w-3xl">
                 {/*content*/}
                 <div className="bg-navy border-0 rounded-lg shadow-lg relative flex flex-col w-full outline-none focus:outline-none">
                   {/*header*/}
                   <div className="flex items-start justify-between p-5 border-b border-solid border-slate-200 rounded-t">
                     <h3 className="xtext-3xl font-semibold text-teal-50">
-                      {oVideoUrl.title}
+                      {sTitle}
                     </h3>
                   </div>
                   {/*body*/}
-                  <div className="aspect-w-16 aspect-h-9">
-                    <iframe src={oVideoUrl.url} className="w-full aspect-video" frameborder="0" allow="accelerometer; autoplay; clipboard-write; encrypted-media; gyroscope; picture-in-picture" allowfullscreen></iframe>
-                  </div>
+                  {
+                    oContent
+                  }
                   {/*footer*/}
                   <div className="flex items-center justify-end p-6 border-t border-solid border-slate-200 rounded-b">
                     <button
@@ -43,4 +43,4 @@ const VideoPlayerModal = ({ bShowModal, setShowModal, oVideoUrl }) => {
   );
 }
 
-export default VideoPlayerModal;
+export default Modal;

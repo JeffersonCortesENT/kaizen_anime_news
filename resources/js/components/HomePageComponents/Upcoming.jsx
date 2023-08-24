@@ -2,6 +2,7 @@ import React, { useEffect, useRef, useState } from "react";
 import { Splide, SplideSlide } from '@splidejs/react-splide';
 import { useSelector } from "react-redux";
 import { selectUpcoming } from "../../features/AnimeSlice";
+import { Link } from "react-router-dom";
 
 const Upcoming = () => {
   const aUpcoming = useSelector(selectUpcoming);
@@ -48,10 +49,14 @@ const Upcoming = () => {
                 </div>
 
                 {/* Mobile Version */}
-                <div className="w-full relative md:hidden sm:block"> 
-                  <img src={aData.images.webp.large_image_url} className="w-full" alt={aData.title}/> 
-                  <div className="absolute bottom-0 px-4 py-3 bg-gray-500/50 w-full text-teal-50"> 
-                    <h3 className="font-sans font-bold text-2xl">{aData.title}</h3>
+                <div className="w-full relative md:hidden sm:block">
+                  <Link to={`/anime/${aData.mal_id}`} >
+                    <img src={aData.images.webp.large_image_url} className="w-full" alt={aData.title}/> 
+                  </Link>
+                  <div className="absolute bottom-0 px-4 py-3 bg-gray-500/50 w-full text-teal-50">
+                    <Link to={`/anime/${aData.mal_id}`} >
+                      <h3 className="font-sans font-bold text-2xl">{aData.title}</h3>
+                    </Link>
                     <div className="sm:my-2 md:my-3 text-lg">
                       <p className="line-clamp-2">{aData.synopsis}</p>
                       <p>{aData.type}</p>

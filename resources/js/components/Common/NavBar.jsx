@@ -1,7 +1,7 @@
 import { Fragment } from 'react'
 import { Disclosure, Menu, Transition } from '@headlessui/react'
 import { Bars3Icon, BellIcon, XMarkIcon } from '@heroicons/react/24/outline'
-import { Link } from 'react-router-dom'
+import { Link, useNavigate } from 'react-router-dom'
 import { HOME, HOME_PATH, SEARCH, SEARCH_PATH } from '../../constants'
 
 const NavBar = ({ sCurrentPage }) => {
@@ -9,6 +9,7 @@ const NavBar = ({ sCurrentPage }) => {
     { name: HOME, href: HOME_PATH, current: sCurrentPage === HOME },
     { name: SEARCH, href: SEARCH_PATH, current: sCurrentPage === SEARCH },
   ]
+  const navigate = useNavigate();
   const sLogo = '/images/logo/kaizen_1.png';
   
   const classNames = (...classes) => {
@@ -34,11 +35,13 @@ const NavBar = ({ sCurrentPage }) => {
               </div>
               <div className="flex flex-1 items-center justify-center sm:items-stretch sm:justify-start">
                 <div className="flex flex-shrink-0 items-center">
-                  <img
-                    className="h-16 w-auto"
-                    src={sLogo}
-                    alt="Kaizen Logo"
-                  />
+                  <a className='cursor-pointer' onClick={() => { navigate('/') }}>
+                    <img
+                      className="h-16 w-auto"
+                      src={sLogo}
+                      alt="Kaizen Logo"
+                    />
+                  </a>
                 </div>
                 <div className="hidden sm:ml-6 sm:block mt-3">
                   <div className="flex space-x-4">

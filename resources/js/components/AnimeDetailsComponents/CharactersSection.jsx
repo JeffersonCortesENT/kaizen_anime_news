@@ -1,9 +1,8 @@
 import { useSelector } from "react-redux";
 import { selectAnimeChars } from "../../features/AnimeSlice";
 import { useEffect, useState } from "react";
-import Loader from "../Common/Loader";
 
-const CharactersSection = () => {
+const CharactersSection = ({ setShowCastModal }) => {
   const oAnimeChars = useSelector(selectAnimeChars);
   const [aDisplayedChars, setDisplayedChars] = useState([]);
 
@@ -25,9 +24,16 @@ const CharactersSection = () => {
     return 3;
   }
 
+  const openCastModal = (oEvent) => {
+    oEvent.preventDefault();
+    setShowCastModal(true);
+  }
+
   useEffect(() => {
     const oDeepCopy = JSON.parse(JSON.stringify(oAnimeChars));
-    console.log(oDeepCopy.slice(0, getItemCount()));
+    oDeepCopy.map((aData) => {
+      aData.voice_actors = aData.voice_actors?.filter(oVA => oVA.language === 'Japanese');
+    });
     setDisplayedChars(oDeepCopy.slice(0, getItemCount()));
   }, [oAnimeChars]);
 
@@ -38,7 +44,7 @@ const CharactersSection = () => {
         {
           aDisplayedChars.length === 0 ? 
           (
-            <Loader/>
+            <span className="text-center m-10 text-lg font-semi-bold text-teal-50">Data unavailable!</span>
           )
           : 
           (
@@ -52,26 +58,34 @@ const CharactersSection = () => {
                       className="h-full object-cover self-start"
                     />
                     <div className="ml-2 flex flex-col justify-between h-full">
-                      <p className="font-medium text-xs lg:text-sm">{oChar.character.name}</p>
-                      <p className="font-light text-xs lg:text-sm text-gray-500">{oChar.role}</p>
+                      <p className="font-medium text-[0.5rem] md:text-sm">{oChar.character.name}</p>
+                      <p className="font-light text-[0.5rem] md:text-sm text-gray-500">{oChar.role}</p>
                     </div>
                     <div className="grow"></div>
-                    <div className="mr-2 flex flex-col justify-between h-full">
-                      <p className="font-medium text-right text-xs lg:text-sm">{oChar.voice_actors?.[0]?.person?.name}</p>
-                      <p className="font-light text-right text-xs lg:text-sm text-gray-500">{oChar.voice_actors?.[0]?.language}</p>
-                    </div>
-                    <img 
-                      src={oChar.voice_actors?.[0]?.person?.images?.jpg?.image_url}
-                      alt={oChar.voice_actors?.[0]?.person?.name}
-                      className="h-full object-cover items-end"
-                    />
+                    {
+                      oChar.voice_actors.length > 0 && (
+                        <>
+                          <div className="mr-2 flex flex-col justify-between h-full">
+                            <p className="font-medium text-right text-[0.5rem] md:text-sm">{oChar.voice_actors?.[0]?.person?.name}</p>
+                            <p className="font-light text-right text-[0.5rem] md:text-sm text-gray-500">{oChar.voice_actors?.[0]?.language}</p>
+                          </div>
+                          <img 
+                            src={oChar.voice_actors?.[0]?.person?.images?.jpg?.image_url}
+                            alt={oChar.voice_actors?.[0]?.person?.name}
+                            className="h-full object-cover items-end"
+                          />
+                        </>
+                      )
+                    }
                   </div>
                   ))
               }
+              <a href="#" onClick={(oEvent) => { openCastModal(oEvent) }} className="w-full text-center font-bold text-teal-50 text-base lg:text-lg">
+                <span>See more...</span>
+              </a>
             </>
           )
         }
-        <span className="w-full text-center font-bold text-teal-50 text-base lg:text-lg">See more...</span>
       </div>
     </>
   );

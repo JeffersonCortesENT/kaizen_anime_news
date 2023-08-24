@@ -11,6 +11,8 @@ import TrailerSection from "./AnimeDetailsComponents/TrailerSection";
 import sweetAlert from "../alertMessages";
 import { ERROR_MULTIPLE_REQUESTS, ERROR_MULTIPLE_REQUESTS_MESSAGE } from "../constants";
 import CharactersSection from "./AnimeDetailsComponents/CharactersSection";
+import Modal from "./Common/Modal";
+import CastModal from "./AnimeDetailsComponents/CastModal";
 
 
 
@@ -18,6 +20,7 @@ const AnimeDetails = () => {
   const dispatch = useDispatch();
   const [bLoading, setLoading] = useState(true);
   const { mal_id } = useParams();
+  const [bShowCastModal, setShowCastModal] = useState(false);
   const MAX_RETRIES = 3;
 
   const retryPromise = async (promise, retries) => {
@@ -70,12 +73,21 @@ const AnimeDetails = () => {
                   <SubDetailsSection/>
                   <div className="flex flex-col w-full">
                     <TrailerSection/>
-                    <CharactersSection/>
+                    <CharactersSection
+                      setShowCastModal={setShowCastModal}
+                    />
                     <div className="flex w-full h-32 bg-silver-shade">
                     </div>
                   </div>
                 </div>
               <Footer/>
+
+              <Modal
+                bShowModal={bShowCastModal}
+                setShowModal={setShowCastModal}
+                oContent={ <CastModal/> }
+                sTitle={'Characters and Voice Actors'}
+              />
             </>
           )
         }

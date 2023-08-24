@@ -1,14 +1,16 @@
+import { useNavigate } from 'react-router';
 import { SocialIcon } from 'react-social-icons';
 
 const Footer = () => {
   const sLogo = '/images/logo/kaizen_2.png';
+  const navigate = useNavigate();
 
   return (
     <>
       <footer className="bg-navy shadow">
           <div className="w-full max-w-screen-xl mx-auto p-4 md:py-8">
               <div className="sm:flex sm:items-center sm:justify-between">
-                  <a href="#" className="flex items-center mb-4 sm:mb-0">
+                  <a className="flex items-center mb-4 sm:mb-0 cursor-pointer" onClick={() => { navigate('/') }}>
                       <img src={sLogo} className="h-10 mr-3" alt="Kaizen Logo" />
                       <span className="self-center text-2xl font-semibold whitespace-nowrap text-teal-50">Kaizen Anime</span>
                   </a>
