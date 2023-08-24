@@ -18,7 +18,6 @@ const AnimeDetails = () => {
   const dispatch = useDispatch();
   const [bLoading, setLoading] = useState(true);
   const { mal_id } = useParams();
-  const [prevMalId, setPrevMalId] = useState(null);
   const MAX_RETRIES = 3;
 
   const retryPromise = async (promise, retries) => {
