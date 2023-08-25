@@ -13,6 +13,8 @@ import { ERROR_MULTIPLE_REQUESTS, ERROR_MULTIPLE_REQUESTS_MESSAGE } from "../con
 import CharactersSection from "./AnimeDetailsComponents/CharactersSection";
 import Modal from "./Common/Modal";
 import CastModal from "./AnimeDetailsComponents/CastModal";
+import StaffSection from "./AnimeDetailsComponents/StaffSection";
+import StaffModal from "./AnimeDetailsComponents/StaffModal";
 
 
 
@@ -21,7 +23,15 @@ const AnimeDetails = () => {
   const [bLoading, setLoading] = useState(true);
   const { mal_id } = useParams();
   const [bShowCastModal, setShowCastModal] = useState(false);
+  const [bShowStaffModal, setShowStaffModal] = useState(false);
   const MAX_RETRIES = 3;
+  const iWidth = window.innerWidth;
+  const oBreakPoints = {
+    sm: (iWidth >= 640 && iWidth < 768),
+    md: (iWidth >= 768 && iWidth < 1024),
+    lg: (iWidth >= 1024 && iWidth < 1280),
+    xl: (iWidth >= 1280),
+  };
 
   const retryPromise = async (promise, retries) => {
     try {
@@ -75,9 +85,12 @@ const AnimeDetails = () => {
                     <TrailerSection/>
                     <CharactersSection
                       setShowCastModal={setShowCastModal}
+                      oBreakPoints={oBreakPoints}
                     />
-                    <div className="flex w-full h-32 bg-silver-shade">
-                    </div>
+                    <StaffSection
+                      setShowStaffModal={setShowStaffModal}
+                      oBreakPoints={oBreakPoints}
+                    />
                   </div>
                 </div>
               <Footer/>
@@ -87,6 +100,12 @@ const AnimeDetails = () => {
                 setShowModal={setShowCastModal}
                 oContent={ <CastModal/> }
                 sTitle={'Characters and Voice Actors'}
+              />
+              <Modal
+                bShowModal={bShowStaffModal}
+                setShowModal={setShowStaffModal}
+                oContent={ <StaffModal/> }
+                sTitle={'Staff'}
               />
             </>
           )

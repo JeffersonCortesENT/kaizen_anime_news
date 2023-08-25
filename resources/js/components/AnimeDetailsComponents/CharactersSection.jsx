@@ -2,19 +2,16 @@ import { useSelector } from "react-redux";
 import { selectAnimeChars } from "../../features/AnimeSlice";
 import { useEffect, useState } from "react";
 
-const CharactersSection = ({ setShowCastModal }) => {
+const CharactersSection = ({ setShowCastModal, oBreakPoints }) => {
   const oAnimeChars = useSelector(selectAnimeChars);
   const [aDisplayedChars, setDisplayedChars] = useState([]);
 
-  const getItemCount = () => {
-    const iWidth = window.innerWidth;
-    const oBreakPoints = {
-      sm: (iWidth >= 640 && iWidth < 768),
-      md: (iWidth >= 768 && iWidth < 1024),
-      lg: (iWidth >= 1024 && iWidth < 1280),
-      xl: (iWidth >= 1280),
-    };
+  const openCastModal = (oEvent) => {
+    oEvent.preventDefault();
+    setShowCastModal(true);
+  }
 
+  const getItemCount = () => {
     if (oBreakPoints.xl === true) {
       return 6;
     } else if (oBreakPoints.lg === true) {
@@ -22,11 +19,6 @@ const CharactersSection = ({ setShowCastModal }) => {
     }
 
     return 3;
-  }
-
-  const openCastModal = (oEvent) => {
-    oEvent.preventDefault();
-    setShowCastModal(true);
   }
 
   useEffect(() => {
@@ -80,7 +72,7 @@ const CharactersSection = ({ setShowCastModal }) => {
                   </div>
                   ))
               }
-              <a href="#" onClick={(oEvent) => { openCastModal(oEvent) }} className="w-full text-center font-bold text-teal-50 text-base lg:text-lg">
+              <a onClick={() => { setShowCastModal(true) }} className="w-full text-center font-bold text-teal-50 text-base lg:text-lg cursor-pointer">
                 <span>See more...</span>
               </a>
             </>

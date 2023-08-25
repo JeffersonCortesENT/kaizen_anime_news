@@ -46,7 +46,7 @@ const TrailerSection = () => {
                 oAnimeFull.trailer.embed_url !== null && (
                   <div className="aspect-wrapper" style={{ width: iTrailerViewPort + '%', height: 'calc('+ iTrailerViewPort +'vw * 9 / 16)' }}>
                     <iframe
-                      src={oAnimeFull.trailer.embed_url}
+                      src={oAnimeFull.trailer.embed_url.replace('autoplay=1', 'autoplay=0')}
                       className="w-full h-full"
                       allow="accelerometer; clipboard-write; encrypted-media; gyroscope; picture-in-picture"
                       allowFullScreen
@@ -60,7 +60,7 @@ const TrailerSection = () => {
                     <div className="text-teal-50 my-3">
                       <span className="font-bold">Available on: </span>
                     </div>
-                    <div className="flex space-x-4">
+                    <div className="flex flex-row flex-wrap justify-between space-x-4">
                       {
                         oAnimeFull.streaming?.map((oStream, iKey) => (
                           typeof oStreamingServices[oStream.name] === 'undefined' ? 

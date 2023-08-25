@@ -59,6 +59,7 @@ const CastModal = () => {
               sTitle={'Language'}
               aList={aLanguages}
               oFunction={setLanguage}
+              sCurrentValue={sSelectedLang}
             />
           </div>
 
@@ -68,7 +69,7 @@ const CastModal = () => {
                 <img 
                   src={oChar.character.images.webp.image_url}
                   alt={oChar.character.name}
-                  className="w-15 lg:w-20 h-full object-cover self-start"
+                  className="w-[30%] md:w-[20%] lg:w-[20%] xl:w-[15%] h-full object-cover self-start"
                 />
                 <div className="ml-2 flex flex-col justify-between h-full">
                   <p className="font-medium text-[0.5rem] lg:text-sm">{oChar.character.name}</p>
@@ -85,7 +86,7 @@ const CastModal = () => {
                       <img 
                         src={oChar.voice_actors?.[0]?.person?.images?.jpg?.image_url}
                         alt={oChar.voice_actors?.[0]?.person?.name}
-                        className="w-15 lg:w-20 h-full object-cover items-end"
+                        className="w-[30%] md:w-[20%] lg:w-[20%] xl:w-[15%] h-full object-cover items-end"
                       />
                     </>
                   )
