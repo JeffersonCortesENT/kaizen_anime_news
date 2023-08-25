@@ -7,9 +7,10 @@ import Loader from "./Common/Loader";
 import News from "./HomePageComponents/News";
 import TopSeasonal from "./HomePageComponents/TopSeasonal";
 import Footer from "./HomePageComponents/Footer";
-import VideoPlayerModal from "./Common/VideoPlayerModal";
 import sweetAlert from "../alertMessages";
 import { ERROR_MULTIPLE_REQUESTS, ERROR_MULTIPLE_REQUESTS_MESSAGE, HOME } from "../constants";
+import Modal from "./Common/Modal";
+import ModalTrailer from "./HomePageComponents/ModalTrailer";
 
 const HomePage = () => {
   const dispatch = useDispatch();
@@ -59,10 +60,11 @@ const HomePage = () => {
 
           <Footer/>
 
-          <VideoPlayerModal 
+          <Modal
             bShowModal={bShowModal}
             setShowModal={setShowModal}
-            oVideoUrl={oVideoUrl}
+            oContent={ <ModalTrailer sUrl={oVideoUrl.url} /> }
+            sTitle={oVideoUrl.title}
           />
         </div>
       </div>

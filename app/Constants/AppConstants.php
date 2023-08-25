@@ -14,6 +14,7 @@ class AppConstants
   //Jikan
   public const JIKAN_VERSION = '/v4';
   public const JIKAN_API_URL = 'https://api.jikan.moe';
+  public const JIKAN_ANIME = '/anime/';
 
   //Common GET Parameters
   public const ORDER_BY = 'order_by';

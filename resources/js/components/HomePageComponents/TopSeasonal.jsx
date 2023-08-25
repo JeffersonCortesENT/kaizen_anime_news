@@ -3,6 +3,7 @@ import 'react-multi-carousel/lib/styles.css';
 import { useSelector } from "react-redux";
 import { selectTopSeasonal } from "../../features/AnimeSlice";
 import { isMobile } from 'react-device-detect';
+import { Link } from "react-router-dom";
 
 const TopSeasonal = ({ setShowModal, setVideoUrl }) => {
   const aSeason = useSelector(selectTopSeasonal);
@@ -23,14 +24,14 @@ const TopSeasonal = ({ setShowModal, setVideoUrl }) => {
     },
     mobile: {
       breakpoint: { max: 464, min: 0 },
-      items: 2
+      items: 1
     }
   };
   //Device Detector package: https://www.npmjs.com/package/react-device-detect
 
-  const openVideoModal = (sUrl) => {
+  const openVideoModal = (oVideoData) => {
     setShowModal(true);
-    setVideoUrl(sUrl);
+    setVideoUrl(oVideoData);
   }
   
 
@@ -53,9 +54,9 @@ const TopSeasonal = ({ setShowModal, setVideoUrl }) => {
                   <img className="rounded-t-lg select-none" src={aData.images.webp.large_image_url} alt="" />
               </a>
               <div className="p-5" title={aData.title}>
-                  <a target="_blank" href={aData.url}>
+                  <Link to={`/anime/${aData.mal_id}`} >
                       <h5 className="mb-2 text-base xl:text-2xl font-bold tracking-tight text-gray-900 dark:text-white line-clamp-2">{aData.title}</h5>
-                  </a>
+                  </Link>
                   <p className="mb-3 font-normal text-gray-700 dark:text-gray-400 line-clamp-2" title={aData.synopsis}>{aData.synopsis}</p>
                   <a onClick={ () => { openVideoModal({url: aData.trailer.embed_url, title: aData.title}) } } className="inline-flex items-center cursor-pointer px-3 py-2 text-sm font-medium text-center text-white bg-blue-700 rounded-lg hover:bg-blue-800 focus:ring-4 focus:outline-none focus:ring-blue-300 dark:bg-blue-600 dark:hover:bg-blue-700 dark:focus:ring-blue-800">
                       Watch Trailer

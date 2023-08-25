@@ -45,4 +45,40 @@ export const fetchAnimeSearch = (oParams) => {
   return axios.get('/get-anime-search', { params: oParams });
 };
 
+/**
+ * Function for saving appointment
+ * @param oQuery
+ * @return {Promise<AxiosResponse<T>>}
+ */
+export const fetchAnimeFull = (iMalId) => {
+  return axios.get('/get-anime-full/' + iMalId);
+};
+
+/**
+ * Function for saving appointment
+ * @param oQuery
+ * @return {Promise<AxiosResponse<T>>}
+ */
+export const fetchAnimeChars = (iMalId) => {
+  return axios.get('/get-anime-chars/' + iMalId);
+};
+
+/**
+ * Function for saving appointment
+ * @param oQuery
+ * @return {Promise<AxiosResponse<T>>}
+ */
+export const fetchAnimeStaff = (iMalId) => {
+  return axios.get('/get-anime-staff/' + iMalId);
+};
+
+/**
+ * Function for saving appointment
+ * @param oQuery
+ * @return {Promise<AxiosResponse<T>>}
+ */
+export const fetchAnimePictures = (iMalId) => {
+  return axios.get('/get-anime-pictures/' + iMalId);
+};
+
 
